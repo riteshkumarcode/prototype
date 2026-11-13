@@ -340,6 +340,40 @@ textarea.input{min-height:100px;resize:vertical}
   .panel{border:1px solid #ddd!important;box-shadow:none!important}
 }
 
+
+/* --- Home Hero Slider Styles --- */
+.hero-slider{position:relative;overflow:hidden;background:var(--ivory)}
+.slider-track{position:relative;width:100%}
+.slide{display:none;opacity:0;transition:opacity .5s ease-in-out;padding:40px 0 60px}
+.slide.active{display:block;opacity:1}
+@media (min-width:1024px){.slide{padding:60px 0 90px}}
+.slide-grid{display:grid;gap:36px;align-items:center}
+@media (min-width:1024px){.slide-grid{grid-template-columns:1.05fr 0.95fr;gap:48px}}
+.slide-copy{max-width:580px}
+.slide-copy h1{font-size:clamp(34px,5.5vw,56px);font-weight:800;letter-spacing:-.025em;line-height:1.08;margin:16px 0 20px;color:var(--navy)}
+.slide-copy p{font-size:clamp(16px,1.8vw,19px);color:var(--slate);line-height:1.6;margin-bottom:28px}
+
+.slide-img-box{position:relative;min-height:300px;border-radius:24px;overflow:hidden;box-shadow:var(--sh-lg);background:var(--ph)}
+@media (min-width:768px){.slide-img-box{min-height:420px;border-radius:28px}}
+.slide-img-box img{width:100%;height:100%;object-fit:cover;display:block}
+.slide-badge{position:absolute;background:rgba(255,255,255,0.96);backdrop-filter:blur(8px);border-radius:16px;box-shadow:var(--sh-md);padding:12px 18px;display:flex;gap:12px;align-items:center;z-index:2}
+.slide-badge.bottom-left{left:16px;bottom:16px}
+.slide-badge.top-right{right:16px;top:16px;background:rgba(11,37,69,0.92);color:#fff}
+@media (max-width:640px){.slide-badge.top-right{display:none}}
+
+/* Slider Controls */
+.slider-nav-btn{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:999px;background:rgba(255,255,255,0.9);backdrop-filter:blur(6px);border:1px solid var(--stone3);box-shadow:var(--sh-md);display:inline-flex;align-items:center;justify-content:center;color:var(--navy);cursor:pointer;z-index:10;transition:all .15s ease}
+.slider-nav-btn:hover{background:#fff;box-shadow:var(--sh-lg);transform:translateY(-50%) scale(1.06);color:var(--teal)}
+.slider-prev{left:16px}
+.slider-next{right:16px}
+@media (min-width:1280px){.slider-prev{left:calc(50% - 660px)}.slider-next{right:calc(50% - 660px)}}
+@media (max-width:768px){.slider-nav-btn{display:none}}
+
+/* Slider Dots */
+.slider-dots{display:flex;justify-content:center;align-items:center;gap:10px;position:absolute;bottom:20px;left:0;right:0;z-index:10}
+.slider-dot{width:10px;height:10px;border-radius:999px;background:var(--stone3);border:0;cursor:pointer;transition:all .25s ease;padding:0}
+.slider-dot.active{width:32px;background:var(--navy);border-radius:999px}
+
 </style>
 </head>
 <body>
@@ -714,8 +748,74 @@ var V={};
 
 V.home=function(){
  var g=GROUPS.slice(0,8);
- return '<section class="hero"><div class="container wrap"><div class="copy"><div class="eyebrow">[NABH] accredited · [City]</div><h1>Specialist care, explained clearly and close to home.</h1><p class="lead" style="max-width:520px;margin-bottom:28px">Find the right doctor, book a consultation and know what to expect — before, during and after your visit.</p><div class="row mb-24"><a class="btn btn-primary" href="#/book-appointment">Book an Appointment</a><a class="btn btn-outline" href="#/specialities">Explore Specialities</a></div><a class="em-card" href="#/emergency-care"><span class="dot">'+ic('phone',20,'#fff')+'</span><span class="stack" style="gap:0;line-height:1.3"><span class="xs" style="color:var(--red);font-weight:700;letter-spacing:.06em">MEDICAL EMERGENCY</span><span class="num" style="font-size:19px;font-weight:700">Call '+PHONE+'</span></span></a></div>'
- +'<div class="hero-img">'+ph('Photo: doctor in consultation with patient &amp; family','Hospital photoshoot · natural light',null,';height:auto').replace('style="height:240px;height:auto"','')+'<div class="float a"><span class="icon-box" style="width:44px;height:44px">'+ic('cal',22)+'</span><span class="stack" style="gap:0;line-height:1.35"><span class="xs muted">OPD open today</span><strong style="color:var(--navy);font-size:15px">[00] specialists available</strong></span></div><div class="float b"><span class="xs" style="color:var(--navy3);font-weight:600;letter-spacing:.08em">ACCREDITED BY</span><strong style="font-family:var(--display);font-size:18px">[NABH] · [NABL]</strong></div></div></div></section>'
+ return '<section class="hero-slider" id="homeSlider" aria-roledescription="carousel" aria-label="Hospital Highlights">'
+ +'<div class="slider-track">'
+ 
+ // SLIDE 1
+ +'<article class="slide active" data-slide="0" aria-label="Slide 1 of 4">'
+ +'<div class="container slide-grid">'
+ +'<div class="slide-copy"><span class="eyebrow" style="color:var(--teal)">NABH &amp; NABL ACCREDITED · TERTIARY CARE</span>'
+ +'<h1>Specialist Care, Explained Clearly &amp; Close to Home.</h1>'
+ +'<p>Find the right doctor, book verified OPD appointments across 18 specialities, and experience compassionate, transparent care before, during, and after your visit.</p>'
+ +'<div class="row mb-24"><a class="btn btn-primary" href="#/book-appointment">⚡ Book an Appointment</a><a class="btn btn-outline" href="#/specialities">Explore Specialities</a></div>'
+ +'<a class="em-card" href="#/emergency-care"><span class="dot">'+ic('phone',20,'#fff')+'</span><span class="stack" style="gap:0;line-height:1.3"><span class="xs" style="color:var(--red);font-weight:700;letter-spacing:.06em">24/7 MEDICAL EMERGENCY</span><span class="num" style="font-size:18px;font-weight:700">'+PHONE+'</span></span></a>'
+ +'</div>'
+ +'<div class="slide-img-box"><img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=1000&q=80" alt="Specialist Doctor Consulting Patient" loading="eager">'
+ +'<div class="slide-badge bottom-left"><span class="icon-box" style="width:42px;height:42px;background:var(--teal1)">'+ic('cal',22)+'</span><span class="stack" style="gap:0;line-height:1.3"><span class="xs muted">OPD Open Today</span><strong style="color:var(--navy);font-size:15px">16 Specialists Available</strong></span></div>'
+ +'<div class="slide-badge top-right"><span class="xs" style="color:var(--navy3);font-weight:600;letter-spacing:.08em">NATIONAL ACCREDITATION</span><strong style="font-family:var(--display);font-size:16px;color:#fff">NABH · NABL Certified</strong></div>'
+ +'</div></div></article>'
+
+ // SLIDE 2
+ +'<article class="slide" data-slide="1" aria-label="Slide 2 of 4">'
+ +'<div class="container slide-grid">'
+ +'<div class="slide-copy"><span class="eyebrow" style="color:var(--red);font-weight:700">24×7 EMERGENCY &amp; LEVEL-1 TRAUMA CENTRE</span>'
+ +'<h1>Every Second Counts When Emergencies Strike.</h1>'
+ +'<p>Rapid triage protocol, primary cardiac angioplasty team on standby, acute stroke thrombolysis, and 65 ICU beds with immediate admission and zero paperwork delays.</p>'
+ +'<div class="row mb-24"><a class="btn btn-em" href="'+TEL+'" style="gap:10px"><i style="width:10px;height:10px;border-radius:999px;background:#fff;display:inline-block"></i>Call Emergency: '+PHONE+'</a><a class="btn btn-outline" href="#/emergency-care">Emergency Care Guide →</a></div>'
+ +'<div class="row xs muted" style="gap:16px"><span>✓ National Ambulance: <strong>108</strong></span><span>✓ Disaster Help: <strong>112</strong></span><span>✓ Dedicated ER Bays</span></div>'
+ +'</div>'
+ +'<div class="slide-img-box"><img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1000&q=80" alt="24/7 Emergency and Trauma Centre" loading="lazy">'
+ +'<div class="slide-badge bottom-left" style="border-left:4px solid var(--red)"><span class="icon-box" style="width:42px;height:42px;background:var(--red1)">'+ic('phone',20,'#c8102e')+'</span><span class="stack" style="gap:0;line-height:1.3"><span class="xs" style="color:var(--red);font-weight:700">GOLDEN HOUR RESPONSE</span><strong style="color:var(--navy);font-size:15px">Cath Lab &amp; ICU Ready 24/7</strong></span></div>'
+ +'</div></div></article>'
+
+ // SLIDE 3
+ +'<article class="slide" data-slide="2" aria-label="Slide 3 of 4">'
+ +'<div class="container slide-grid">'
+ +'<div class="slide-copy"><span class="eyebrow" style="color:var(--teal)">ROBOTIC &amp; MINIMAL ACCESS SURGERY</span>'
+ +'<h1>Pioneering Precision Surgery for Faster Recovery.</h1>'
+ +'<p>Robotic joint replacement, high-definition 4K laparoscopy, and 12 sterile laminar flow modular operation theatres designed for minimal pain, smaller incisions, and swift healing.</p>'
+ +'<div class="row mb-24"><a class="btn btn-primary" href="#/facilities">Explore Facilities &amp; OTs</a><a class="btn btn-outline" href="#/doctors">Meet Our Surgeons</a></div>'
+ +'<div class="row xs muted" style="gap:16px"><span>✓ 12 Modular OTs</span><span>✓ HEPA Air Filtration</span><span>✓ Infection Rate &lt; 0.1%</span></div>'
+ +'</div>'
+ +'<div class="slide-img-box"><img src="https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=1000&q=80" alt="Modular Laminar Flow Operation Theatre" loading="lazy">'
+ +'<div class="slide-badge bottom-left"><span class="icon-box" style="width:42px;height:42px;background:var(--navy1)">'+ic('care',22)+'</span><span class="stack" style="gap:0;line-height:1.3"><span class="xs muted">SURGICAL EXCELLENCE</span><strong style="color:var(--navy);font-size:15px">12 Modular Sterile OTs</strong></span></div>'
+ +'</div></div></article>'
+
+ // SLIDE 4
+ +'<article class="slide" data-slide="3" aria-label="Slide 4 of 4">'
+ +'<div class="container slide-grid">'
+ +'<div class="slide-copy"><span class="eyebrow" style="color:var(--amber)">PREVENTIVE HEALTHCARE PACKAGES</span>'
+ +'<h1>Comprehensive Checkups for You &amp; Your Family.</h1>'
+ +'<p>Catch potential health risks early. Comprehensive Full Body, Cardiac, Women\'s Wellness, and Senior Citizen packages with up to 68 tests, expert doctor reviews, and same-day reports.</p>'
+ +'<div class="row mb-24"><a class="btn btn-primary" href="#/health-packages">View Health Packages</a><a class="btn btn-outline" href="#/contact-us?topic=package">Book Home Sample Collection</a></div>'
+ +'<div class="row xs muted" style="gap:16px"><span>✓ Packages from <strong>₹1,899</strong></span><span>✓ Fasting Guidelines Included</span><span>✓ NABL Lab</span></div>'
+ +'</div>'
+ +'<div class="slide-img-box"><img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1000&q=80" alt="Preventive Health Checkup and Diagnostics" loading="lazy">'
+ +'<div class="slide-badge bottom-left"><span class="icon-box" style="width:42px;height:42px;background:var(--warn1)">'+ic('drop',22)+'</span><span class="stack" style="gap:0;line-height:1.3"><span class="xs muted">Same-Day Reports</span><strong style="color:var(--navy);font-size:15px">Up to 68 Clinical Tests</strong></span></div>'
+ +'</div></div></article>'
+
+ +'</div>' // end slider-track
+
+ // Controls
+ +'<button type="button" class="slider-nav-btn slider-prev" id="sliderPrev" aria-label="Previous Slide">‹</button>'
+ +'<button type="button" class="slider-nav-btn slider-next" id="sliderNext" aria-label="Next Slide">›</button>'
+ +'<div class="slider-dots" role="tablist" aria-label="Slide indicators">'
+ +'<button type="button" class="slider-dot active" data-dot="0" role="tab" aria-label="Slide 1" aria-selected="true"></button>'
+ +'<button type="button" class="slider-dot" data-dot="1" role="tab" aria-label="Slide 2" aria-selected="false"></button>'
+ +'<button type="button" class="slider-dot" data-dot="2" role="tab" aria-label="Slide 3" aria-selected="false"></button>'
+ +'<button type="button" class="slider-dot" data-dot="3" role="tab" aria-label="Slide 4" aria-selected="false"></button>'
+ +'</div>'
+ +'</section>'
  +'<section aria-label="Find a doctor"><div class="container"><form class="finder" id="finder"><div class="full row" style="justify-content:space-between"><h2 class="h3">Find a doctor</h2><span class="muted small">'+DOCS.length+' sample profiles across '+SPECS.length+' specialities</span></div><label class="field">Doctor’s name<input class="input" name="q" type="text" placeholder="e.g. Dr Sharma"></label><label class="field">Speciality<select class="input" name="spec"><option value="">All specialities</option>'+SPECS.map(function(s){return '<option value="'+s.slug+'">'+s.name+'</option>';}).join('')+'</select></label><label class="field">Location<select class="input" name="branch"><option value="">All branches</option>'+BRANCHES.map(function(b){return '<option value="'+b.slug+'">'+b.name+'</option>';}).join('')+'</select></label><button class="btn btn-dark" type="submit">'+ic('arrow',18)+'Search</button><div class="full row xs muted" style="gap:8px">Popular: <a class="chip" href="#/specialities/orthopaedics">Knee pain</a><a class="chip" href="#/specialities/obstetrics-gynaecology">Pregnancy care</a><a class="chip" href="#/specialities/cardiology">Chest pain</a><a class="chip" href="#/specialities/nephrology">Dialysis</a><a class="chip" href="#/specialities/paediatrics">Child fever</a></div></form></div></section>'
  +'<section class="section" style="padding-top:48px" aria-label="At a glance"><div class="container"><div class="stats"><div><div class="n num">[00]</div><div class="muted small">Years of care</div></div><div><div class="n num">[000]</div><div class="muted small">Doctors</div></div><div><div class="n num">[000]</div><div class="muted small">Beds incl. [00] ICU</div></div><div><div class="n num">[00]</div><div class="muted small">Specialities</div></div><div><div class="n">[NABH]</div><div class="muted small">Accredited quality</div></div></div><p class="xs muted mt-8">Figures appear only after hospital verification.</p></div></section>'
  +'<section class="section alt" aria-labelledby="h-spec"><div class="container"><div class="sec-head"><div><div class="eyebrow">Specialities</div><h2 class="h2" id="h-spec">Care organised around you</h2><p class="lead">Not sure which department you need? Start with the part of the body or the person you’re worried about.</p></div><a class="link-arrow" href="#/specialities">All specialities '+ic('arrow',16)+'</a></div><div class="grid g4">'
@@ -1090,6 +1190,60 @@ function route(){
  after(p,r.q);
 }
 function after(p,q){
+
+ // Hero Slider Controller
+ var slider = document.getElementById('homeSlider');
+ if(slider){
+   var slides = slider.querySelectorAll('.slide');
+   var dots = slider.querySelectorAll('.slider-dot');
+   var prevBtn = document.getElementById('sliderPrev');
+   var nextBtn = document.getElementById('sliderNext');
+   var curSlide = 0;
+   var autoTimer = null;
+
+   function showSlide(idx){
+     if(!slides.length) return;
+     curSlide = (idx + slides.length) % slides.length;
+     slides.forEach(function(s, i){
+       var on = i === curSlide;
+       s.classList.toggle('active', on);
+     });
+     dots.forEach(function(d, i){
+       var on = i === curSlide;
+       d.classList.toggle('active', on);
+       d.setAttribute('aria-selected', on ? 'true' : 'false');
+     });
+   }
+
+   function nextSlide(){ showSlide(curSlide + 1); }
+   function prevSlide(){ showSlide(curSlide - 1); }
+
+   if(nextBtn) nextBtn.addEventListener('click', function(){ nextSlide(); restartTimer(); });
+   if(prevBtn) prevBtn.addEventListener('click', function(){ prevSlide(); restartTimer(); });
+
+   dots.forEach(function(d){
+     d.addEventListener('click', function(){
+       var target = parseInt(d.getAttribute('data-dot'));
+       showSlide(target);
+       restartTimer();
+     });
+   });
+
+   function startTimer(){
+     if(autoTimer) clearInterval(autoTimer);
+     autoTimer = setInterval(nextSlide, 6000);
+   }
+   function restartTimer(){
+     clearInterval(autoTimer);
+     startTimer();
+   }
+
+   slider.addEventListener('mouseenter', function(){ clearInterval(autoTimer); });
+   slider.addEventListener('mouseleave', function(){ startTimer(); });
+
+   startTimer();
+ }
+
  bindIns();
  document.querySelectorAll('[data-jump]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var t=document.getElementById(a.getAttribute('data-jump'));if(t){var y=t.getBoundingClientRect().top+scrollY-140;scrollTo({top:y,behavior:'smooth'});}});});
  var fd=document.getElementById('finder');
