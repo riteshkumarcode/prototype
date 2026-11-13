@@ -1,0 +1,1170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CarePulse Hospital — Multi-Speciality Hospital & Research Centre</title>
+<meta name="description" content="Clickable website prototype: find a doctor, book an appointment, emergency care, specialities, health packages and patient information.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0b2545;--navy7:#1d4e89;--navy1:#eaf1f9;--navy3:#9fb3cc;--navy8:#13345d;--navy9:#071a33;
+  --teal:#0f7a7a;--teal1:#e6f4f2;--amber:#b04a17;--amber7:#933c11;--amber1:#fbefe8;
+  --ivory:#f7f5f1;--ivory2:#efebe4;--white:#fff;--ink:#14202e;--slate:#5a6675;
+  --stone:#e3e0da;--stone3:#c9c4bb;--stone5:#8c8579;--focus:#2f6fd0;
+  --ok:#1e7a46;--ok1:#e7f4ec;--warn:#8f5b12;--warn1:#fbf3e2;--red:#c8102e;--red7:#a50d26;--red1:#fdecee;
+  --ph:#dfe6ee;
+  --r-sm:6px;--r-md:10px;--r-lg:16px;--r-xl:28px;
+  --sh-md:0 6px 16px rgba(20,24,30,.08),0 2px 4px rgba(20,24,30,.06);
+  --sh-lg:0 20px 48px rgba(20,24,30,.14),0 4px 12px rgba(20,24,30,.08);
+  --display:Manrope,"Segoe UI",system-ui,sans-serif;--sans:Inter,"Segoe UI",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;font-family:var(--sans);font-size:17px;line-height:1.6;color:var(--ink);background:var(--white);overflow-x:hidden}
+@media (min-width:768px){body{font-size:18px}}
+img,svg{max-width:100%}
+a{color:var(--navy7);text-decoration:none}
+a:hover{color:var(--navy);text-decoration:underline}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:4px}
+h1,h2,h3,h4{font-family:var(--display);color:var(--navy);margin:0;line-height:1.15;letter-spacing:-.01em}
+p{margin:0}
+ul{margin:0}
+button{font:inherit;cursor:pointer}
+.skip{position:absolute;left:-999px;top:8px;background:var(--navy);color:#fff;padding:10px 14px;border-radius:8px;z-index:200}
+.skip:focus{left:8px}
+.container{max-width:1280px;margin:0 auto;padding:0 20px}
+@media (min-width:768px){.container{padding:0 32px}}
+@media (min-width:1280px){.container{padding:0 40px}}
+.section{padding:56px 0}
+@media (min-width:768px){.section{padding:88px 0}}
+.alt{background:var(--ivory)}
+.dark{background:var(--navy);color:#fff}
+.dark h1,.dark h2,.dark h3{color:#fff}
+.eyebrow{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+.dark .eyebrow{color:var(--navy3)}
+.h1{font-size:clamp(34px,6vw,56px);font-weight:800;letter-spacing:-.025em;line-height:1.07}
+.h2{font-size:clamp(28px,4vw,40px);font-weight:700;letter-spacing:-.015em}
+.h3{font-size:clamp(20px,2.4vw,24px);font-weight:700}
+.lead{font-size:clamp(17px,2vw,20px);color:var(--slate);line-height:1.6}
+.muted{color:var(--slate)}
+.small{font-size:15px}
+.xs{font-size:13px}
+.num{font-variant-numeric:tabular-nums}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:32px}
+.sec-head .lead{max-width:620px;margin-top:12px}
+.stack{display:flex;flex-direction:column;gap:12px}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.grid{display:grid;gap:20px;grid-template-columns:1fr}
+@media (min-width:640px){.g2,.g3,.g4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1024px){.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.split{display:grid;gap:32px;grid-template-columns:1fr}
+.split>*,.grid>*{min-width:0}
+.opt span{overflow-wrap:anywhere}
+@media (min-width:1024px){.split{grid-template-columns:5fr 7fr;gap:56px}.split.rev{grid-template-columns:7fr 5fr}.split.side{grid-template-columns:8fr 4fr;align-items:start}}
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 22px;border-radius:var(--r-md);font-weight:600;font-size:16px;border:1px solid transparent;text-decoration:none!important;transition:background .15s,box-shadow .15s;line-height:1.2;text-align:center}
+.btn-primary{background:var(--amber);color:#fff}.btn-primary:hover{background:var(--amber7);color:#fff}
+.btn-dark{background:var(--navy);color:#fff}.btn-dark:hover{background:var(--navy7);color:#fff}
+.btn-outline{background:#fff;color:var(--navy);border-color:var(--stone3)}.btn-outline:hover{border-color:var(--navy);color:var(--navy)}
+.btn-ghost-light{background:transparent;color:#fff;border-color:var(--navy3)}.btn-ghost-light:hover{color:#fff;border-color:#fff}
+.btn-em{background:var(--red);color:#fff}.btn-em:hover{background:var(--red7);color:#fff}
+.btn-block{width:100%}
+.btn-sm{min-height:40px;padding:8px 14px;font-size:15px}
+.link-arrow{font-weight:600;font-size:16px;display:inline-flex;align-items:center;gap:6px}
+/* chips & tags */
+.chip{display:inline-flex;align-items:center;min-height:40px;padding:8px 16px;border-radius:999px;border:1px solid var(--stone3);background:#fff;color:var(--ink);font-size:15px;font-weight:500;text-decoration:none!important}
+.chip:hover{border-color:var(--navy);color:var(--navy)}
+.chip[aria-pressed=true],.chip.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.pill{display:inline-flex;align-items:center;padding:4px 12px;border-radius:999px;font-size:13px;font-weight:600}
+.pill-teal{background:var(--teal1);color:var(--teal)}.pill-warn{background:var(--warn1);color:var(--warn)}.pill-navy{background:var(--navy1);color:var(--navy7)}.pill-ok{background:var(--ok1);color:var(--ok)}.pill-red{background:var(--red1);color:var(--red)}
+/* cards */
+.card{background:#fff;border:1px solid var(--stone);border-radius:var(--r-lg);padding:24px;display:flex;flex-direction:column;gap:10px;color:var(--ink);text-decoration:none!important;transition:box-shadow .15s,border-color .15s}
+a.card:hover{box-shadow:var(--sh-md);border-color:var(--stone3);color:var(--ink)}
+.card h3{font-size:19px}
+.card .more{margin-top:auto;font-size:15px;font-weight:600;color:var(--navy7)}
+.icon-box{width:52px;height:52px;border-radius:14px;background:var(--teal1);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.icon-box svg{width:26px;height:26px;stroke:var(--teal)}
+.ph{background:var(--ph);border-radius:var(--r-lg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--navy7);text-align:center;padding:16px;font-size:14px;font-weight:600}
+.ph small{font-weight:400;color:var(--slate);font-size:13px}
+.ph svg{width:36px;height:36px;stroke:var(--navy7)}
+/* utility bar + header */
+.demo{background:var(--warn1);color:var(--warn);font-size:13px;font-weight:600;text-align:center;padding:7px 16px}
+.demo a{color:var(--warn);text-decoration:underline}
+.util{background:var(--navy);color:#fff;font-size:14px}
+.util .container{display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:40px;flex-wrap:wrap}
+.util a{color:#fff}
+.util .muted-l{color:var(--navy3)}
+.util .em{display:inline-flex;align-items:center;gap:8px;font-weight:600}
+.util .em i{width:8px;height:8px;border-radius:999px;background:#ff6b7d;display:inline-block}
+.util .hide-sm{display:none!important}
+@media (min-width:900px){.util .hide-sm{display:inline-flex!important}}
+.hdr{background:#fff;border-bottom:1px solid var(--stone);position:sticky;top:0;z-index:50}
+.hdr .container{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px}
+.logo{display:flex;align-items:center;gap:10px;color:var(--navy);text-decoration:none!important}
+.logo b{width:40px;height:40px;border-radius:11px;background:var(--navy);display:inline-flex;align-items:center;justify-content:center}
+.logo span{display:flex;flex-direction:column;line-height:1.1}
+.logo strong{font-family:var(--display);font-weight:800;font-size:19px;color:var(--navy)}
+.logo em{font-style:normal;font-size:11px;letter-spacing:.08em;color:var(--slate);font-weight:600}
+.nav{display:none;align-items:center;gap:4px}
+.nav>a,.nav>.dd>button{color:var(--ink);font-size:15px;font-weight:500;padding:10px 10px;border-radius:8px;background:none;border:0;display:inline-flex;align-items:center;gap:4px}
+.nav>a:hover,.nav>.dd>button:hover{background:var(--ivory);text-decoration:none;color:var(--navy)}
+.nav a[aria-current=page],.nav button.cur{color:var(--navy7);font-weight:600}
+.hdr-actions{display:flex;gap:8px;align-items:center}
+.icon-btn{width:44px;height:44px;border-radius:10px;border:1px solid var(--stone);background:#fff;display:inline-flex;align-items:center;justify-content:center;color:var(--navy)}
+.menu-btn{background:var(--navy);border-color:var(--navy);color:#fff}
+.hdr .book{display:none}
+@media (min-width:640px){.hdr .book{display:inline-flex}}
+@media (min-width:1240px){.nav{display:flex}.menu-btn{display:none}}
+.nav>a,.nav>.dd>button,.hdr .book{white-space:nowrap}
+@media (max-width:400px){.logo em{display:none}.logo strong{font-size:18px}}
+@media (min-width:1240px) and (max-width:1380px){.nav>a,.nav>.dd>button{padding:10px 7px;font-size:14.5px}.hdr .icon-btn[aria-label="Find a doctor"]{display:none}}
+.dd{position:relative}
+.mega{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%);width:min(880px,90vw);background:#fff;border:1px solid var(--stone);border-radius:20px;box-shadow:var(--sh-lg);padding:28px;display:none;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px 28px}
+.dd.open .mega{display:grid}
+.mega h4{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--slate);font-family:var(--sans);font-weight:600;margin-bottom:8px}
+.mega a{display:block;padding:5px 0;font-size:15px;color:var(--ink)}
+.mega .all{grid-column:1/-1;border-top:1px solid var(--stone);padding-top:16px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.mega .all a{color:var(--navy7);font-weight:600;display:inline}
+/* drawer */
+.drawer{position:fixed;inset:0;z-index:70;display:none}
+.drawer.open{display:block}
+.drawer .scrim{position:absolute;inset:0;background:rgba(11,37,69,.45)}
+.drawer .panel{position:absolute;top:0;right:0;bottom:0;width:min(400px,100%);background:#fff;display:flex;flex-direction:column;overflow-y:auto}
+.drawer .ptop{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--stone)}
+.drawer nav{padding:8px 20px;display:flex;flex-direction:column}
+.drawer nav a{padding:14px 0;border-bottom:1px solid var(--stone);color:var(--ink);font-size:17px;font-weight:500;display:flex;justify-content:space-between}
+.drawer .pbot{padding:20px;display:flex;flex-direction:column;gap:10px;margin-top:auto}
+/* action bar (mobile) */
+.actionbar{position:fixed;left:0;right:0;bottom:0;z-index:60;background:#fff;border-top:1px solid var(--stone);box-shadow:0 -6px 16px rgba(20,24,30,.08);display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:8px 12px calc(8px + env(safe-area-inset-bottom))}
+.actionbar a{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px;border-radius:12px;font-size:13px;font-weight:600;color:var(--navy7);text-decoration:none!important;min-height:52px;justify-content:center}
+.actionbar a.call{color:var(--red)}
+.actionbar a.book{background:var(--amber);color:#fff}
+body{padding-bottom:76px}
+@media (min-width:768px){.actionbar{display:none}body{padding-bottom:0}}
+/* forms */
+.field{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:600;color:var(--ink)}
+.field .opt{font-weight:400;color:var(--slate)}
+.input,select.input,textarea.input{width:100%;min-height:52px;border:1px solid var(--stone5);border-radius:var(--r-md);padding:12px 14px;font-size:16px;font-family:var(--sans);color:var(--ink);background:#fff}
+textarea.input{min-height:100px;resize:vertical}
+.input:focus{border-color:var(--navy7);outline:3px solid var(--focus);outline-offset:1px}
+.input[aria-invalid=true]{border:2px solid var(--red);background:var(--red1)}
+.err{color:var(--red);font-size:14px;font-weight:500;display:none}
+.err.show{display:block}
+.check{display:flex;gap:12px;align-items:flex-start;font-size:15px;font-weight:400}
+.check input{width:22px;height:22px;margin:2px 0 0;accent-color:var(--navy);flex-shrink:0}
+.notice{display:flex;gap:12px;align-items:flex-start;border-radius:14px;padding:16px 18px;font-size:15px}
+.notice-red{background:var(--red1);border:1px solid #f3c6cd}
+.notice-ok{background:var(--ok1);color:var(--ok);font-weight:600}
+.notice-warn{background:var(--warn1);color:var(--warn)}
+.notice-navy{background:var(--navy1);color:var(--navy7)}
+/* breadcrumb + page hero */
+.crumbs{font-size:14px;color:var(--slate);padding:20px 0 0;display:flex;flex-wrap:wrap;gap:6px}
+.crumbs a{color:var(--navy7)}
+.page-hero{background:var(--ivory);padding:0 0 48px}
+.page-hero .inner{padding-top:28px}
+@media (min-width:768px){.page-hero{padding-bottom:72px}.page-hero .inner{padding-top:40px}}
+.page-hero .lead{max-width:680px;margin-top:16px}
+/* home hero */
+.hero{background:var(--ivory);overflow:hidden}
+.hero .wrap{display:grid;gap:32px;padding-top:40px}
+@media (min-width:1024px){.hero .wrap{grid-template-columns:1fr 1fr;align-items:end;padding-top:72px}}
+.hero .copy{padding-bottom:24px}
+@media (min-width:1024px){.hero .copy{padding-bottom:120px}}
+.hero h1{font-size:clamp(36px,6vw,62px);font-weight:800;letter-spacing:-.025em;line-height:1.06;margin-bottom:20px}
+.hero-img{position:relative;min-height:300px;height:100%}
+.hero-img .ph{height:340px;border-radius:24px 24px 0 0}
+@media (min-width:1024px){.hero-img .ph{height:560px;border-radius:28px 28px 0 0}}
+.float{position:absolute;background:#fff;border-radius:16px;box-shadow:var(--sh-lg);padding:14px 18px;display:flex;gap:12px;align-items:center}
+.float.a{left:12px;bottom:40px}
+.float.b{right:12px;top:16px;background:var(--navy);color:#fff;flex-direction:column;align-items:flex-start;gap:0}
+@media (min-width:1024px){.float.a{left:-36px;bottom:64px}}
+.em-card{display:inline-flex;align-items:center;gap:14px;padding:12px 18px 12px 12px;background:#fff;border:1px solid #f3c6cd;border-radius:14px;text-decoration:none!important;color:var(--ink)}
+.em-card .dot{width:44px;height:44px;border-radius:999px;background:var(--red);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.finder{background:#fff;border-radius:20px;box-shadow:var(--sh-lg);padding:20px;display:grid;gap:14px;position:relative;margin-top:-28px}
+@media (min-width:900px){.finder{grid-template-columns:1.3fr 1fr 1fr auto;align-items:end;padding:28px 32px;margin-top:-56px}.finder .full{grid-column:1/-1}}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--stone)}
+.stats>div{padding:20px 16px 20px 0;border-bottom:1px solid var(--stone)}
+@media (min-width:900px){.stats{grid-template-columns:repeat(5,1fr)}.stats>div{padding:28px 20px;border-right:1px solid var(--stone)}.stats>div:last-child{border-right:0}}
+.stats .n{font-family:var(--display);font-size:clamp(30px,4vw,44px);font-weight:700;color:var(--navy);line-height:1.1}
+/* doctor card */
+.doc{background:#fff;border:1px solid var(--stone);border-radius:var(--r-lg);overflow:hidden;display:flex;flex-direction:column}
+.doc .ph{border-radius:0;height:200px;position:relative}
+.doc .ph .pill{position:absolute;top:10px;left:10px}
+.doc .body{padding:20px;display:flex;flex-direction:column;gap:6px;flex:1}
+.doc .meta{display:flex;flex-direction:column;gap:6px;font-size:14px;margin-top:8px}
+.doc .meta span{display:flex;gap:8px;align-items:center}
+.doc .meta svg{width:16px;height:16px;stroke:var(--slate);flex-shrink:0}
+.doc .acts{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--stone)}
+.doc .acts a{padding:14px;text-align:center;font-weight:600;font-size:15px;min-height:48px}
+.doc .acts a+a{border-left:1px solid var(--stone);color:var(--amber)}
+.doc-row{display:flex;gap:16px;align-items:center}
+.doc-row .ph{width:76px;height:76px;border-radius:12px;padding:0;flex-shrink:0}
+/* facility bento */
+.bento{display:grid;gap:16px;grid-template-columns:1fr}
+@media (min-width:768px){.bento{grid-template-columns:repeat(4,1fr);grid-auto-rows:210px}.bento .big{grid-column:span 2;grid-row:span 2}}
+.tile{border-radius:20px;background:var(--navy8);padding:24px;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;color:#fff;text-decoration:none!important;min-height:160px}
+.tile:hover{background:#18406f;color:#fff}
+.tile.big{background:var(--navy7)}
+.tile p{color:#d6e0ec;font-size:15px}
+.tile h3{color:#fff;font-size:20px}
+.tile.big h3{font-size:clamp(22px,3vw,28px)}
+/* journey */
+.step-col{border-top:3px solid var(--navy);padding-top:24px}
+.step-col:nth-child(2){border-color:var(--teal)}.step-col:nth-child(3){border-color:var(--amber)}
+.step-col ul{padding-left:20px;color:var(--slate);font-size:16px;line-height:1.8;margin-top:12px}
+/* faq */
+.faq details{border-bottom:1px solid var(--stone3);padding:18px 0}
+.faq details:first-child{border-top:1px solid var(--stone3)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;font-family:var(--display);font-weight:700;font-size:18px;color:var(--navy)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--navy7);font-size:22px;line-height:1}
+.faq details[open] summary::after{content:"−"}
+.faq details p{margin-top:12px;color:var(--slate);font-size:16px}
+/* cta band */
+.cta-band{background:var(--navy);border-radius:24px;padding:36px 24px;display:flex;flex-direction:column;gap:24px;color:#fff}
+@media (min-width:900px){.cta-band{flex-direction:row;justify-content:space-between;align-items:center;padding:56px;border-radius:28px}}
+.cta-band h2{color:#fff}
+.cta-band p{color:var(--navy3)}
+/* in-page tabs */
+.subnav{border-bottom:1px solid var(--stone);background:#fff;position:sticky;top:68px;z-index:40}
+.subnav .container{display:flex;gap:24px;overflow-x:auto;scrollbar-width:none}
+.subnav a{padding:16px 0;font-size:15px;font-weight:500;color:var(--slate);white-space:nowrap;border-bottom:3px solid transparent}
+.subnav a:hover{color:var(--navy);text-decoration:none}
+/* list rows */
+.lrow{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--stone);font-size:16px}
+.lrow span:first-child{color:var(--slate)}
+.lrow span:last-child{font-weight:600;text-align:right}
+/* table */
+.tbl{width:100%;border-collapse:collapse;font-size:15px}
+.tbl th,.tbl td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--stone);vertical-align:top}
+.tbl th{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--slate);font-weight:600;background:var(--ivory)}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--stone);border-radius:var(--r-lg)}
+/* booking */
+.stepper{list-style:none;margin:0 0 28px;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.stepper li{display:flex;flex-direction:column;gap:8px;font-size:12px;font-weight:600;color:var(--slate)}
+.stepper li::before{content:"";height:4px;border-radius:999px;background:var(--stone)}
+.stepper li.done{color:var(--teal)}.stepper li.done::before{background:var(--teal)}
+.stepper li.cur{color:var(--navy)}.stepper li.cur::before{background:var(--navy)}
+.stepper .lbl{display:none}
+@media (min-width:768px){.stepper li{font-size:14px}.stepper .lbl{display:inline}}
+.panel{background:#fff;border:1px solid var(--stone);border-radius:18px;padding:20px}
+@media (min-width:768px){.panel{padding:28px}}
+.opt-grid{display:grid;gap:10px;grid-template-columns:repeat(2,1fr)}
+@media (min-width:768px){.opt-grid{grid-template-columns:repeat(3,1fr)}}
+.opt{border:1px solid var(--stone3);background:#fff;border-radius:12px;padding:14px;text-align:left;display:flex;gap:12px;align-items:center;min-height:56px;color:var(--ink)}
+.opt:hover{border-color:var(--navy)}
+.opt[aria-pressed=true]{border:2px solid var(--navy);background:var(--navy1);padding:13px}
+.dates{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+@media (min-width:640px){.dates{grid-template-columns:repeat(7,1fr)}}
+.date{border:1px solid var(--stone3);background:#fff;border-radius:12px;padding:10px 4px;display:flex;flex-direction:column;align-items:center;gap:0;color:var(--ink);min-height:72px}
+.date b{font-family:var(--display);font-size:22px}
+.date small{font-size:11px;color:var(--slate)}
+.date[aria-pressed=true]{background:var(--navy);border-color:var(--navy);color:#fff}
+.date[aria-pressed=true] small{color:var(--navy3)}
+.date:disabled,.slot:disabled{background:var(--ivory);color:var(--slate);cursor:not-allowed;border-style:dashed}
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+@media (min-width:640px){.slots{grid-template-columns:repeat(6,1fr)}}
+.slot{min-height:48px;border:1px solid var(--stone3);background:#fff;border-radius:10px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--ink)}
+.slot:disabled{text-decoration:line-through}
+.slot[aria-pressed=true]{background:var(--navy);border-color:var(--navy);color:#fff}
+.summary{position:sticky;top:96px}
+.sched{width:100%;border-collapse:collapse;font-size:15px}
+.sched th,.sched td{padding:10px 20px;border-top:1px solid var(--stone);text-align:left}
+.sched td{text-align:right}
+.sched tr.today{background:var(--navy1);font-weight:700}
+/* footer */
+.ftr{background:var(--navy9);color:#fff;padding:56px 0 24px}
+.ftr .cols{display:grid;gap:28px;grid-template-columns:1fr 1fr;padding-bottom:36px;border-bottom:1px solid #1d3a5f}
+@media (min-width:1024px){.ftr .cols{grid-template-columns:2fr 1fr 1fr 1fr 1fr}}
+.ftr .brand{grid-column:1/-1}
+@media (min-width:1024px){.ftr .brand{grid-column:auto}}
+.ftr h4{font-family:var(--sans);font-size:13px;letter-spacing:.08em;color:var(--navy3);font-weight:600;margin-bottom:12px}
+.ftr a{color:#fff;display:block;padding:4px 0;font-size:15px}
+.ftr .bot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:20px;font-size:14px;color:var(--navy3)}
+.ftr .bot a{color:var(--navy3);display:inline;margin-right:16px}
+/* misc */
+.toc{background:var(--ivory);border-radius:16px;padding:20px}
+.toc a{display:block;padding:6px 0;font-size:15px}
+.article p{margin-bottom:18px}
+.article h2{font-size:26px;margin:32px 0 12px}
+.timeline{border-left:2px solid var(--stone);padding-left:24px;display:flex;flex-direction:column;gap:28px}
+.timeline div{position:relative}
+.timeline div::before{content:"";position:absolute;left:-31px;top:6px;width:12px;height:12px;border-radius:999px;background:var(--teal)}
+.map-box{background:var(--ph);border-radius:16px;min-height:220px;display:flex;align-items:center;justify-content:center;color:var(--navy7);font-weight:600;font-size:14px;text-align:center;padding:16px}
+.hide-mobile{display:none}
+@media (min-width:768px){.hide-mobile{display:initial}}
+.mt-8{margin-top:8px}.mt-16{margin-top:16px}.mt-24{margin-top:24px}.mt-32{margin-top:32px}.mb-16{margin-bottom:16px}.mb-24{margin-bottom:24px}
+.center{text-align:center}
+.journey-card{border:1px solid var(--stone);border-radius:18px;padding:24px;background:#fff}
+.journey-card ol{margin:14px 0 0;padding-left:22px;line-height:2}
+[hidden]{display:none!important}
+
+/* --- Enhanced Prototype Bar & Brand Modal --- */
+.demo-bar{background:linear-gradient(90deg,#071a33,#0b2545);color:#fff;font-size:13px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.12);position:relative;z-index:90}
+.demo-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.demo-left,.demo-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.demo-pill{background:#0f7a7a;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:.05em}
+.demo-brand-name{font-weight:600;color:#eaf1f9}
+.demo-btn-sm{background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.25);border-radius:6px;padding:3px 10px;font-size:12px;cursor:pointer;transition:background .15s}
+.demo-btn-sm:hover{background:rgba(255,255,255,0.25)}
+.demo-link{color:#9fb3cc;font-weight:500;text-decoration:none;font-size:13px;transition:color .15s}
+.demo-link:hover{color:#fff;text-decoration:underline}
+
+/* Brand Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(11,37,69,0.7);z-index:999;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal-card{background:#fff;border-radius:18px;max-width:480px;width:100%;box-shadow:var(--sh-lg);padding:28px;display:flex;flex-direction:column;gap:16px}
+
+/* Enhanced Images */
+.ph-img{position:relative;overflow:hidden;border-radius:var(--r-lg);background:var(--ph);display:flex;align-items:center;justify-content:center}
+.ph-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s ease}
+.card:hover .ph-img img{transform:scale(1.03)}
+.ph-fallback{display:none;position:absolute;inset:0;background:var(--navy1);flex-direction:column;align-items:center;justify-content:center;color:var(--navy7);padding:16px;text-align:center;font-size:14px;font-weight:600}
+
+/* Mega menu position fix */
+@media (min-width:1240px){
+  .dd{position:static}
+  .hdr .container{position:relative}
+  .mega{left:20px;right:20px;transform:none;width:auto;top:calc(100% + 8px);max-height:85vh;overflow-y:auto}
+}
+
+/* Print styling */
+@media print{
+  .demo-bar,.util,.hdr,.ftr,.actionbar,.skip,.subnav,.btn{display:none!important}
+  body{padding:0!important;background:#fff!important;color:#000!important}
+  .container{max-width:100%!important;padding:0!important}
+  .panel{border:1px solid #ddd!important;box-shadow:none!important}
+}
+
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="demo-bar" role="banner">
+  <div class="container demo-inner">
+    <div class="demo-left">
+      <span class="demo-pill">PROTOTYPE</span>
+      <span class="demo-brand-name" id="demoBrandLabel">CarePulse Multi-Speciality Hospital</span>
+      <button type="button" class="demo-btn-sm" id="btnChangeBrand">✏️ Customize Hospital Name</button>
+    </div>
+    <div class="demo-right">
+      <a href="#/book-appointment" class="demo-link">⚡ Test Booking</a>
+      <a href="#/patient-information/insurance" class="demo-link">💳 Cashless Checker</a>
+      <a href="#/prototype-map" class="demo-link">🗺️ Sitemap &amp; Workflows</a>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for Customizing Brand -->
+<div class="modal-overlay" id="brandModal" aria-hidden="true" role="dialog" aria-labelledby="modalBrandTitle">
+  <div class="modal-card">
+    <div class="row" style="justify-content:space-between;align-items:center">
+      <h3 class="h3" id="modalBrandTitle">Customize Hospital Name</h3>
+      <button type="button" class="icon-btn" id="btnCloseBrandModal" aria-label="Close modal">✕</button>
+    </div>
+    <p class="muted small">Enter your hospital or client name. This prototype will instantly update the branding across all 30+ pages.</p>
+    <label class="field">Hospital Name
+      <input type="text" class="input" id="inputBrandName" placeholder="e.g. ApexCare Super-Speciality Hospital" value="CarePulse Multi-Speciality Hospital">
+    </label>
+    <div class="row" style="justify-content:flex-end;margin-top:8px">
+      <button type="button" class="btn btn-outline" id="btnResetBrand">Reset Default</button>
+      <button type="button" class="btn btn-primary" id="btnSaveBrand">Apply Name</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="util">
+  <div class="container">
+    <a class="em" href="#/emergency-care"><i aria-hidden="true"></i>Emergency: <span class="em-phone-text">1800-202-9999</span></a>
+    <span class="muted-l hide-sm">OPD: Mon–Sat, 09:00–20:00 · 24/7 Trauma</span>
+    <span class="muted-l hide-sm">Cashless with CGHS, ECHS &amp; 20+ TPAs</span>
+    <span class="row hide-sm" style="gap:16px"><a href="#/careers">Careers</a><a href="#/contact-us">Contact</a></span>
+  </div>
+</div>
+
+<header class="hdr">
+  <div class="container">
+    <a class="logo" href="#/" aria-label="[Hospital Name] home">
+      <b><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></b>
+      <span><strong class="brand-text">CarePulse Hospital</strong><em class="brand-sub">MULTI-SPECIALITY &amp; RESEARCH CENTRE</em></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#/about-us" data-nav="about-us">About</a>
+      <div class="dd" id="specDD">
+        <button type="button" aria-expanded="false" aria-controls="mega" data-nav="specialities">Specialities <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="mega" id="mega"></div>
+      </div>
+      <a href="#/doctors" data-nav="doctors">Doctors</a>
+      <a href="#/facilities" data-nav="facilities">Facilities</a>
+      <a href="#/patient-information" data-nav="patient-information">Patients &amp; Visitors</a>
+      <a href="#/health-packages" data-nav="health-packages">Packages</a>
+      <a href="#/locations" data-nav="locations">Locations</a>
+      <a href="#/blog" data-nav="blog">Health Library</a>
+    </nav>
+    <div class="hdr-actions">
+      <a class="icon-btn" href="#/doctors" aria-label="Find a doctor"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></a>
+      <a class="btn btn-primary book" href="#/book-appointment">Book Appointment</a>
+      <button type="button" class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer" id="drawer" aria-hidden="true">
+  <div class="scrim" data-close></div>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="ptop"><strong style="font-family:var(--display);color:var(--navy)">Menu</strong><button type="button" class="icon-btn" data-close aria-label="Close menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+    <nav aria-label="Mobile">
+      <a href="#/specialities">Specialities <span aria-hidden="true">›</span></a>
+      <a href="#/doctors">Find a Doctor <span aria-hidden="true">›</span></a>
+      <a href="#/health-packages">Health Packages <span aria-hidden="true">›</span></a>
+      <a href="#/patient-information/insurance">Insurance &amp; Cashless <span aria-hidden="true">›</span></a>
+      <a href="#/facilities">Facilities <span aria-hidden="true">›</span></a>
+      <a href="#/patient-information">Patients &amp; Visitors <span aria-hidden="true">›</span></a>
+      <a href="#/locations">Locations <span aria-hidden="true">›</span></a>
+      <a href="#/blog">Health Library <span aria-hidden="true">›</span></a>
+      <a href="#/about-us">About Us <span aria-hidden="true">›</span></a>
+      <a href="#/careers">Careers <span aria-hidden="true">›</span></a>
+      <a href="#/contact-us">Contact <span aria-hidden="true">›</span></a>
+    </nav>
+    <div class="pbot">
+      <a class="btn btn-primary btn-block" href="#/book-appointment">Book Appointment</a>
+      <a class="btn btn-em btn-block" href="tel:0000000000">Emergency: [000-000-0000]</a>
+    </div>
+  </div>
+</div>
+
+<main id="main" tabindex="-1"></main>
+
+<footer class="ftr">
+  <div class="container">
+    <div class="cols">
+      <div class="brand stack">
+        <strong style="font-family:var(--display);font-size:22px" class="brand-text">CarePulse Hospital</strong>
+        <p style="color:var(--navy3);font-size:15px;max-width:320px">Multi-speciality tertiary care across 18 specialities and 2 advanced hospital locations in Metro City.</p>
+        <a class="btn btn-em" style="align-self:flex-start;display:inline-flex" href="tel:0000000000">Emergency: [000-000-0000]</a>
+      </div>
+      <div><h4>HOSPITAL</h4><a href="#/about-us">About us</a><a href="#/about-us/leadership">Leadership</a><a href="#/about-us/accreditations">Accreditations</a><a href="#/careers">Careers</a><a href="#/news-and-events">News &amp; events</a></div>
+      <div><h4>PATIENTS</h4><a href="#/doctors">Find a doctor</a><a href="#/book-appointment">Book appointment</a><a href="#/patient-information/insurance">Insurance &amp; cashless</a><a href="#/health-packages">Health packages</a><a href="#/patient-information/visiting-hours">Visiting hours</a></div>
+      <div><h4>CARE</h4><a href="#/specialities">Specialities</a><a href="#/facilities">Facilities</a><a href="#/emergency-care">Emergency care</a><a href="#/blog">Health library</a><a href="#/faqs">FAQs</a></div>
+      <div><h4>CONTACT</h4><a href="#/locations/branch-1">[Branch 1]</a><a href="#/locations/branch-2">[Branch 2]</a><a href="#/contact-us">Contact us</a><a href="#/prototype-map">Sitemap</a></div>
+    </div>
+    <div class="bot"><span>© 2026 <span class="brand-text">CarePulse Hospital</span>. Information on this site is not a substitute for medical advice.</span><span><a href="#/legal/privacy-policy">Privacy</a><a href="#/legal/terms-and-conditions">Terms</a><a href="#/legal/medical-disclaimer">Medical disclaimer</a><a href="#/legal/accessibility">Accessibility</a></span></div>
+  </div>
+</footer>
+
+<nav class="actionbar" aria-label="Quick actions">
+  <a class="call" href="tel:0000000000"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>Emergency</a>
+  <a class="book" href="#/book-appointment"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Book</a>
+  <a href="#/locations"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Directions</a>
+</nav>
+
+<script>
+(function(){
+'use strict';
+/* ---------------- ICONS ---------------- */
+var I={
+ heart:'<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>',
+ brain:'<path d="M3 12h4l2-5 4 10 2-5h6"/>',
+ bone:'<circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8 16 16 8"/>',
+ women:'<circle cx="12" cy="9" r="5"/><path d="M12 14v7M9 18h6"/>',
+ child:'<circle cx="12" cy="12" r="8"/><path d="M9 14c.8 1 1.8 1.5 3 1.5s2.2-.5 3-1.5"/>',
+ drop:'<path d="M12 3c3 4 6 7 6 11a6 6 0 0 1-12 0c0-4 3-7 6-11z"/>',
+ gut:'<path d="M8 4c-3 3-3 7 0 9s3 7 7 7 5-4 3-7-2-6 0-9"/>',
+ plus:'<path d="M12 5v14M5 12h14"/>',
+ care:'<path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/>',
+ cam:'<rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/>',
+ person:'<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/>',
+ clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+ pin:'<path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+ cal:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+ phone:'<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>',
+ check:'<path d="m5 12 5 5 9-10"/>',
+ arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>',
+ info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>',
+ doc:'<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/>'
+};
+function ic(n,sz,col){return '<svg aria-hidden="true" width="'+(sz||22)+'" height="'+(sz||22)+'" viewBox="0 0 24 24" fill="none" stroke="'+(col||'currentColor')+'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+I[n]+'</svg>';}
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function ph(label,sub,h,extra){return '<div class="ph" style="height:'+(h||240)+'px'+(extra||'')+'">'+ic('cam',36)+'<span>'+label+'</span>'+(sub?'<small>'+sub+'</small>':'')+'</div>';}
+
+/* ---------------- BRAND SYSTEM ---------------- */
+var BRAND = {
+  name: localStorage.getItem('demo_hosp_name') || 'CarePulse Super-Speciality Hospital',
+  short: 'CarePulse',
+  tagline: 'MULTI-SPECIALITY & RESEARCH CENTRE',
+  phone: '+91 (011) 4920-8000',
+  emPhone: '1800-202-9999',
+  tel: 'tel:18002029999'
+};
+var TEL = BRAND.tel, PHONE = BRAND.emPhone;
+
+function updateBrandDOM(){
+  document.querySelectorAll('.brand-text').forEach(function(el){ el.textContent = BRAND.name; });
+  document.querySelectorAll('.em-phone-text').forEach(function(el){ el.textContent = BRAND.emPhone; });
+  var lbl = document.getElementById('demoBrandLabel');
+  if(lbl) lbl.textContent = BRAND.name;
+  var bInp = document.getElementById('inputBrandName');
+  if(bInp) bInp.value = BRAND.name;
+  document.title = BRAND.name + ' — Multi-Speciality Hospital & Research Centre';
+}
+
+function ph(label, sub, h, extra, imgUrl){
+  var height = h || 240;
+  if(!imgUrl){
+    // Auto-map common labels to curated medical photos
+    var map = {
+      'Photo: ICU bay': 'https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=800&q=80',
+      'Photo: hospital building exterior': 'https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?auto=format&fit=crop&w=800&q=80',
+      'Photo: nursing team at a bedside': 'https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=800&q=80',
+      'Photo: doctor in consultation with patient & family': 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=800&q=80',
+      'Portrait: Chairman': 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=600&q=80',
+      'Photo: Central City Campus exterior': 'https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?auto=format&fit=crop&w=800&q=80',
+      'Photo: South Extension Super-Speciality exterior': 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80',
+      'Photo: Reception': 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=600&q=80',
+      'Photo: OPD waiting area': 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=600&q=80',
+      'Photo: Patient room': 'https://images.unsplash.com/photo-1512678080530-7760d81faba6?auto=format&fit=crop&w=600&q=80',
+      'Photo: Diagnostics': 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=600&q=80'
+    };
+    imgUrl = map[label];
+  }
+  if(imgUrl){
+    return '<div class="ph-img" style="height:'+height+'px;'+(extra||'')+'">'
+      +'<img src="'+imgUrl+'" alt="'+esc(label)+'" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\';">'
+      +'<div class="ph-fallback" style="height:100%;width:100%">'+ic('cam',36)+'<span>'+label+'</span>'+(sub?'<small>'+sub+'</small>':'')+'</div>'
+      +'</div>';
+  }
+  return '<div class="ph" style="height:'+height+'px'+(extra||'')+'">'+ic('cam',36)+'<span>'+label+'</span>'+(sub?'<small>'+sub+'</small>':'')+'</div>';
+}
+
+
+/* ---------------- DATA (placeholders until hospital verifies) ---------------- */
+var GROUPS=[
+ {id:'heart',name:'Heart & blood vessels',icon:'heart'},
+ {id:'brain',name:'Brain, spine & nerves',icon:'brain'},
+ {id:'bone',name:'Bones & joints',icon:'bone'},
+ {id:'women',name:'Women & mothers',icon:'women'},
+ {id:'child',name:'Children & newborns',icon:'child'},
+ {id:'kidney',name:'Kidney & urinary',icon:'drop'},
+ {id:'gut',name:'Stomach, liver & gut',icon:'gut'},
+ {id:'critical',name:'Critical & emergency care',icon:'plus'},
+ {id:'general',name:'Everyday & other care',icon:'care'}
+];
+var GEN_COND=['[Condition 1 — to be supplied by the department]','[Condition 2]','[Condition 3]','[Condition 4]'];
+var SPECS=[
+ {slug:'cardiology',name:'Cardiology',g:'heart',blurb:'Chest discomfort, breathlessness or palpitations shouldn’t be ignored. Our cardiologists find the cause and explain your options in plain language.',
+  cond:[['Chest pain & angina','Pain or pressure from reduced blood flow to the heart.'],['High blood pressure','Diagnosis, medicines and long-term monitoring.'],['Coronary artery disease','Narrowed arteries that can lead to a heart attack.'],['Heart failure','When the heart can’t pump as well as it should.'],['Arrhythmias & palpitations','Fast, slow or irregular heartbeat.'],['Valve disease','Leaking or narrowed heart valves.']],
+  urgent:['Chest pain or pressure lasting more than a few minutes','Pain spreading to the arm, jaw or back, with sweating','Sudden severe breathlessness or fainting'],
+  book:['Breathless on stairs or walking','Palpitations or irregular heartbeat','High BP, cholesterol or diabetes needing review'],
+  tests:[['ECG','A 5-minute recording of your heart’s rhythm.'],['2D Echo','Ultrasound images of the heart’s chambers and valves.'],['TMT (treadmill test)','How your heart responds to exercise.'],['Holter monitoring','24–48 hour rhythm recording at home.']],
+  related:['nephrology','endocrinology','pulmonology','critical-care']},
+ {slug:'neurology',name:'Neurology',g:'brain',blurb:'Headaches, seizures, numbness or memory problems — our neurologists diagnose and manage conditions of the brain and nerves.',
+  cond:[['Stroke','Rapid assessment and rehabilitation.'],['Epilepsy & seizures','Diagnosis and long-term control.'],['Migraine & headache','Finding triggers and the right treatment.'],['Parkinson’s disease','Medicines and movement support.'],['Neuropathy','Numbness, tingling and nerve pain.'],['Vertigo','Dizziness and balance problems.']],
+  urgent:['Sudden face drooping, arm weakness or slurred speech','A seizure lasting more than 5 minutes','The worst headache of your life'],book:['Frequent headaches','Numbness or tingling','Memory or balance problems'],
+  tests:[['EEG','Records brain activity.'],['NCV / EMG','Tests nerve and muscle function.'],['MRI brain','[In-house — verify]']],related:['neurosurgery','physiotherapy','critical-care']},
+ {slug:'neurosurgery',name:'Neurosurgery',g:'brain',related:['neurology','orthopaedics']},
+ {slug:'orthopaedics',name:'Orthopaedics & Joint Replacement',g:'bone',blurb:'From sports injuries to worn-out knees, we treat bones, joints and muscles — with surgery only when it’s the right choice.',
+  cond:[['Knee & hip arthritis','Pain relief, physiotherapy and joint replacement.'],['Fractures','Plaster, fixation and recovery.'],['Back & neck pain','Non-surgical and surgical options.'],['Sports injuries','Ligament, tendon and cartilage care.'],['Frozen shoulder','Stiffness and pain treatment.'],['Osteoporosis','Bone strength assessment.']],
+  urgent:['A suspected fracture or dislocation','Severe pain after a fall or accident','Loss of feeling or movement in a limb'],book:['Knee pain that won’t settle','Back pain lasting weeks','Joint stiffness in the morning'],
+  tests:[['Digital X-ray','Fast imaging of bones.'],['MRI','Soft tissue and ligament detail.'],['Bone density (DEXA)','[Verify availability]']],related:['physiotherapy','neurosurgery','critical-care']},
+ {slug:'obstetrics-gynaecology',name:'Obstetrics & Gynaecology',g:'women',blurb:'Care for every stage — periods, pregnancy, birth and menopause — from doctors who listen.',
+  cond:[['Pregnancy & antenatal care','Check-ups, scans and birth planning.'],['High-risk pregnancy','Closer monitoring for you and your baby.'],['PCOS & irregular periods','Diagnosis and long-term management.'],['Fibroids & endometriosis','Medical and laparoscopic treatment.'],['Infertility','Assessment and treatment options.'],['Menopause','Symptom relief and bone health.']],
+  urgent:['Heavy bleeding in pregnancy','Severe abdominal pain','Baby moving less than usual'],book:['Planning a pregnancy','Painful or irregular periods','Routine women’s health check'],
+  tests:[['Ultrasound','Pregnancy and pelvic scans.'],['Pap smear','Cervical screening.'],['Hormone tests','Thyroid, PCOS and fertility.']],related:['paediatrics','neonatology','endocrinology']},
+ {slug:'paediatrics',name:'Paediatrics',g:'child',blurb:'Gentle, expert care for babies, children and teenagers — from vaccinations to serious illness.',
+  cond:[['Fever & infections','Assessment and treatment.'],['Asthma & allergies','Long-term control plans.'],['Growth & nutrition','Development checks.'],['Vaccinations','As per the national schedule.']],
+  urgent:['Difficulty breathing','A fit or seizure','Unusually drowsy or not responding'],book:['Vaccination due','Recurring cough or cold','Growth or feeding worries'],
+  tests:[['Blood tests','Child-friendly sample collection.'],['X-ray','Low-dose imaging.']],related:['neonatology','obstetrics-gynaecology']},
+ {slug:'neonatology',name:'Neonatology & NICU',g:'child',related:['paediatrics','obstetrics-gynaecology']},
+ {slug:'nephrology',name:'Nephrology & Dialysis',g:'kidney',blurb:'Kidney care from early diagnosis to dialysis, with a team that supports you over the long term.',
+  cond:[['Chronic kidney disease','Slowing progression and managing symptoms.'],['Kidney failure & dialysis','Haemodialysis [and CRRT — verify].'],['Kidney stones','With the Urology team.'],['High BP from kidney disease','Combined care.']],
+  urgent:['Very little or no urine','Swelling with breathlessness','Missed dialysis with symptoms'],book:['Raised creatinine on a report','Swelling of feet','Diabetes with kidney concerns'],
+  tests:[['KFT','Kidney function blood test.'],['Urine tests','Protein and infection.'],['Ultrasound KUB','Kidney imaging.']],related:['urology','cardiology','endocrinology']},
+ {slug:'urology',name:'Urology',g:'kidney',related:['nephrology','general-surgery']},
+ {slug:'gastroenterology',name:'Gastroenterology',g:'gut',related:['general-surgery','oncology']},
+ {slug:'general-surgery',name:'General & Laparoscopic Surgery',g:'gut',related:['gastroenterology','urology']},
+ {slug:'critical-care',name:'Critical Care & ICU',g:'critical',related:['emergency-medicine','cardiology']},
+ {slug:'emergency-medicine',name:'Emergency Medicine',g:'critical',related:['critical-care','orthopaedics']},
+ {slug:'oncology',name:'Oncology',g:'general',related:['general-surgery','gastroenterology']},
+ {slug:'pulmonology',name:'Pulmonology',g:'general',related:['cardiology','critical-care']},
+ {slug:'endocrinology',name:'Endocrinology & Diabetes',g:'general',related:['cardiology','nephrology']},
+ {slug:'ent',name:'ENT',g:'general',related:['general-surgery']},
+ {slug:'ophthalmology',name:'Ophthalmology',g:'general',related:['endocrinology']},
+ {slug:'dermatology',name:'Dermatology',g:'general',related:['endocrinology']},
+ {slug:'dentistry',name:'Dentistry',g:'general',related:['ent']},
+ {slug:'physiotherapy',name:'Physiotherapy & Rehab',g:'general',related:['orthopaedics','neurology']},
+ {slug:'general-medicine',name:'General Medicine',g:'general',related:['endocrinology','pulmonology']}
+];
+function spec(slug){for(var i=0;i<SPECS.length;i++)if(SPECS[i].slug===slug)return SPECS[i];return null;}
+function grp(id){for(var i=0;i<GROUPS.length;i++)if(GROUPS[i].id===id)return GROUPS[i];}
+
+var BRANCHES=[
+ {slug:'branch-1',name:'Central City Campus',addr:'Plot 14-A, Sector 44, Institutional Area, Metro City, 110001',phone:'+91 (011) 4920-8000',beds:'450',icu:'65',ot:'12',est:'2008',hours:'OPD Mon–Sat 09:00–20:00 · 24/7 Emergency',mapUrl:'https://maps.google.com/?q=Central+City+Hospital+Sector+44'},
+ {slug:'branch-2',name:'South Extension Super-Speciality',addr:'82 Ring Road, South Extension Part II, Metro City, 110049',phone:'+91 (011) 4920-9000',beds:'280',icu:'40',ot:'8',est:'2016',hours:'OPD Mon–Sat 09:00–20:00 · 24/7 Emergency',mapUrl:'https://maps.google.com/?q=South+Extension+Hospital'}
+];
+var QUAL={cardiology:'MBBS, MD, DM (Cardiology)',neurology:'MBBS, MD, DM (Neurology)',orthopaedics:'MBBS, MS (Orthopaedics)','obstetrics-gynaecology':'MBBS, MS (Obs & Gynae)',paediatrics:'MBBS, MD (Paediatrics)',nephrology:'MBBS, MD, DM (Nephrology)','general-surgery':'MBBS, MS (General Surgery)',gastroenterology:'MBBS, MD, DM (Gastro)','general-medicine':'MBBS, MD (Medicine)',dermatology:'MBBS, MD (Dermatology)',ent:'MBBS, MS (ENT)',urology:'MBBS, MS, MCh (Urology)'};
+var DAYSETS=[['Mon','Tue','Wed','Thu','Fri','Sat'],['Mon','Wed','Fri'],['Tue','Thu','Sat'],['Mon','Tue','Thu','Fri'],['Wed','Sat']];
+var TIMES=[['10:00','14:00'],['17:00','20:00'],['09:00','13:00'],['11:00','15:00']];
+
+var REAL_DOCTORS_LIST = [
+  {id:'doctor-01',name:'Dr. Rajesh K. Sharma',spec:'cardiology',title:'Director & Chief Interventional Cardiologist',qual:'MBBS, MD, DM (Cardiology), FACC',exp:'22',branches:['branch-1','branch-2'],days:['Mon','Tue','Wed','Thu','Fri','Sat'],time:['10:00','14:00'],fee:'₹1,200',lang:'English, Hindi',img:'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=600&q=80'},
+  {id:'doctor-02',name:'Dr. Ananya Mukherjee',spec:'cardiology',title:'Senior Consultant, Cardiac Electrophysiology',qual:'MBBS, MD, DM (Cardiology)',exp:'16',branches:['branch-1'],days:['Mon','Wed','Fri'],time:['14:00','18:00'],fee:'₹1,100',lang:'English, Hindi, Bengali',img:'https://images.unsplash.com/photo-1594824813589-8d82d49e19d3?auto=format&fit=crop&w=600&q=80'},
+  {id:'doctor-03',name:'Dr. Vikramaditya Sen',spec:'neurology',title:'Chief Neurophysician & Stroke Specialist',qual:'MBBS, MD, DM (Neurology)',exp:'19',branches:['branch-1','branch-2'],days:['Tue','Thu','Sat'],time:['10:00','14:00'],fee:'₹1,200',lang:'English, Hindi',img:'https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=600&q=80'},
+  {id:'doctor-04',name:'Dr. Arunabh Mehra',spec:'orthopaedics',title:'Director, Joint Replacement & Robotic Surgery',qual:'MBBS, MS (Orthopaedics), MCh (Joint Repl.)',exp:'24',branches:['branch-1'],days:['Mon','Tue','Thu','Fri'],time:['09:00','13:00'],fee:'₹1,300',lang:'English, Hindi, Punjabi',img:'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=600&q=80'},
+  {id:'doctor-05',name:'Dr. Siddharth Varma',spec:'orthopaedics',title:'Consultant, Sports Medicine & Arthroscopy',qual:'MBBS, MS (Ortho), Fellowship Arthroscopy',exp:'14',branches:['branch-2'],days:['Tue','Thu','Sat'],time:['11:00','15:00'],fee:'₹1,000',lang:'English, Hindi',img:'https://images.unsplash.com/photo-1582750433449-648ed127bb54?auto=format&fit=crop&w=600&q=80'},
+  {id:'doctor-06',name:'Dr. Sunita Kapoor',spec:'obstetrics-gynaecology',title:'Senior Consultant, High-Risk Obstetrics & Gynae',qual:'MBBS, MS (Obs & Gynae), FICOG',exp:'21',branches:['branch-1','branch-2'],days:['Mon','Wed','Fri','Sat'],time:['10:00','14:00'],fee:'₹1,100',lang:'English, Hindi',img:'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=600&q=80'},
+  {id:'doctor-07',name:'Dr. Ritu Chawla',spec:'obstetrics-gynaecology',title:'Consultant, Foetal Medicine & Laparoscopic Gynae',qual:'MBBS, DGO, DNB (Obs & Gynae)',exp:'13',branches:['branch-1'],days:['Tue','Thu','Sat'],time:['14:00','18:00'],fee:'₹900',lang:'English, Hindi',img:'https://images.unsplash.com/photo-1594824813636-6014e82b3d68?auto=format&fit=crop&w=600&q=80'},
+  {id:'doctor-08',name:'Dr. Rohit Bansal',spec:'paediatrics',title:'Director, Paediatrics & Neonatal Intensive Care',qual:'MBBS, MD (Paediatrics), Fellowship Neonatology',exp:'17',branches:['branch-1','branch-2'],days:['Mon','Tue','Wed','Thu','Fri','Sat'],time:['09:00','13:00'],fee:'₹900',lang:'English, Hindi',img:'https://images.unsplash.com/photo-1622902046580-2b47f47f5471?auto=format&fit=crop&w=600&q=80'},
+  {id:'doctor-09',name:'Dr. Priya Venkatesh',spec:'nephrology',title:'Senior Consultant, Nephrology & Renal Transplant',qual:'MBBS, MD, DM (Nephrology)',exp:'15',branches:['branch-1'],days:['Mon','Wed','Fri'],time:['10:00','14:00'],fee:'₹1,100',lang:'English, Hindi, Tamil',img:'https://images.unsplash.com/photo-1651008376811-b90baee60c1f?auto=format&fit=crop&w=600&q=80'},
+  {id:'doctor-10',name:'Dr. Devendra Joshi',spec:'general-surgery',title:'Director, Minimal Access & Bariatric Surgery',qual:'MBBS, MS (Surgery), FMAS, FIAGES',exp:'20',branches:['branch-1','branch-2'],days:['Tue','Thu','Sat'],time:['11:00','15:00'],fee:'₹1,000',lang:'English, Hindi, Gujarati',img:'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=600&q=80'},
+  {id:'doctor-11',name:'Dr. Shalini Nair',spec:'gastroenterology',title:'Senior Consultant, Medical Gastroenterology',qual:'MBBS, MD, DM (Gastroenterology)',exp:'16',branches:['branch-1'],days:['Mon','Tue','Thu','Fri'],time:['12:00','16:00'],fee:'₹1,200',lang:'English, Hindi, Malayalam',img:'https://images.unsplash.com/photo-1643297654416-05795d62e39c?auto=format&fit=crop&w=600&q=80'},
+  {id:'doctor-12',name:'Dr. Amitav Roy',spec:'general-medicine',title:'Lead Consultant, Internal Medicine & Critical Care',qual:'MBBS, MD (Medicine), FACP',exp:'18',branches:['branch-1','branch-2'],days:['Mon','Tue','Wed','Thu','Fri','Sat'],time:['09:00','13:00'],fee:'₹800',lang:'English, Hindi, Bengali',img:'https://images.unsplash.com/photo-1584467735871-8e85353a8413?auto=format&fit=crop&w=600&q=80'},
+  {id:'doctor-13',name:'Dr. Neha Singhal',spec:'dermatology',title:'Consultant Dermatologist & Dermatosurgeon',qual:'MBBS, MD (Dermatology & Venereology)',exp:'12',branches:['branch-2'],days:['Mon','Wed','Fri'],time:['15:00','19:00'],fee:'₹900',lang:'English, Hindi',img:'https://images.unsplash.com/photo-1594824813589-8d82d49e19d3?auto=format&fit=crop&w=600&q=80'},
+  {id:'doctor-14',name:'Dr. Sanjay Goel',spec:'ent',title:'Senior Consultant, ENT, Head & Neck Surgery',qual:'MBBS, MS (ENT), Fellowship Cochlear Implant',exp:'19',branches:['branch-1'],days:['Tue','Thu','Sat'],time:['10:00','14:00'],fee:'₹1,000',lang:'English, Hindi',img:'https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=600&q=80'},
+  {id:'doctor-15',name:'Dr. Manpreet Kaur',spec:'urology',title:'Senior Consultant, Urology, Andrology & Robotic Surgery',qual:'MBBS, MS, MCh (Urology)',exp:'15',branches:['branch-1','branch-2'],days:['Mon','Wed','Fri'],time:['11:00','15:00'],fee:'₹1,200',lang:'English, Hindi, Punjabi',img:'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=600&q=80'},
+  {id:'doctor-16',name:'Dr. Farhan Siddiqui',spec:'paediatrics',title:'Consultant Paediatrician & Child Allergist',qual:'MBBS, MD (Paediatrics), FIAP',exp:'14',branches:['branch-2'],days:['Mon','Tue','Thu','Sat'],time:['14:00','18:00'],fee:'₹900',lang:'English, Hindi, Urdu',img:'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=600&q=80'}
+];
+var DOCS = REAL_DOCTORS_LIST;
+
+function doc(id){for(var i=0;i<DOCS.length;i++)if(DOCS[i].id===id)return DOCS[i];return null;}
+function br(slug){for(var i=0;i<BRANCHES.length;i++)if(BRANCHES[i].slug===slug)return BRANCHES[i];return null;}
+
+var FAC=[
+ {slug:'emergency-department',name:'24/7 Emergency & Level-1 Trauma Centre',d:'Triage resuscitation bays, cardiac monitoring, and direct cath-lab transfer protocol.',big:1,img:'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80'},
+ {slug:'icu',name:'Intensive Care Units (ICU / CCU / SICU)',d:'65 critical care beds with 1:1 dedicated nursing, advanced invasive ventilation, and round-the-clock intensivists.',img:'https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=800&q=80'},
+ {slug:'operation-theatres',name:'Modular Laminar Flow Operation Theatres',d:'12 sterile surgical suites with HEPA filtration, 4K laparoscopy, and robotic surgery integration.',img:'https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=800&q=80'},
+ {slug:'mri-ct',name:'3 Tesla MRI & 128-Slice Dual Source CT',d:'High-definition non-invasive scanning with ultra-fast cardiac angiography and brain perfusion imaging.',img:'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80'},
+ {slug:'cath-lab',name:'Digital Cardiac Cath Lab',d:'Flat-panel interventional cardiology suite for primary emergency angioplasty, pacemaker implantation, and EVAR.',img:'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80'},
+ {slug:'dialysis',name:'Haemodialysis Centre',d:'24 state-of-the-art dialysis stations with isolated bays for infectious cases and bedside CRRT for ICU patients.',img:'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80'},
+ {slug:'laboratory',name:'NABL-Accredited Automated Pathology Lab',d:'Biochemistry, haematology, microbiology, and histopathology with digital barcoded tracking.',img:'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80'},
+ {slug:'nicu',name:'Level-III NICU & PICU',d:'Neonatal intensive care with high-frequency oscillation ventilators, incubators, and total parenteral nutrition.',img:'https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=800&q=80'},
+ {slug:'blood-bank',name:'24/7 Licensed Component Blood Bank',d:'Full component separation (PRBC, FFP, Platelets, Cryo) and apheresis facility with automated NAT screening.',img:'https://images.unsplash.com/photo-1615461066841-6116e61058f4?auto=format&fit=crop&w=800&q=80'},
+ {slug:'pharmacy',name:'24-Hour Hospital Pharmacy',d:'Comprehensive stock of genuine medicines, vaccines, critical care formulations, and surgical consumables.',img:'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=800&q=80'},
+ {slug:'ambulance',name:'ACLS Mobile Intensive Care Ambulances',d:'GPS-tracked ambulance fleet equipped with transport ventilators, multi-para monitors, and emergency medical technicians.',img:'https://images.unsplash.com/photo-1587745416684-47953f16f02f?auto=format&fit=crop&w=800&q=80'},
+ {slug:'rooms',name:'Patient Suites & Private Rooms',d:'General wards, twin sharing, deluxe private rooms, and executive suites designed for patient comfort and hygiene.',img:'https://images.unsplash.com/photo-1512678080530-7760d81faba6?auto=format&fit=crop&w=800&q=80'}
+];
+var PKGS=[
+ {cat:'Full body',name:'Comprehensive Full Body Check-up',tests:'68 tests · Complete Hemogram, Lipid Profile, LFT, KFT, Thyroid Profile, HbA1c, Urine Routine, ECG',prep:'10–12 hours fasting required',price:'₹3,499'},
+ {cat:'Women',name:'Women’s Comprehensive Wellness',tests:'54 tests · Thyroid, Vitamin D3/B12, Pap Smear, Bilateral Mammogram/Breast USG, Pelvic USG, Bone Density',prep:'Avoid during active menstrual cycle',price:'₹2,999'},
+ {cat:'Men',name:'Men’s Executive Health Screening',tests:'52 tests · Cardiac Risk Markers, LFT, KFT, Serum PSA (Prostate), Ultrasound Abdomen, Chest X-Ray',prep:'10–12 hours fasting required',price:'₹2,799'},
+ {cat:'Senior',name:'Senior Citizen Golden Care',tests:'60 tests · 2D Echo, Carotid Doppler, HbA1c, Serum Creatinine, Bone Density (DEXA), Ophthalmology & Audiometry review',prep:'Bring current medication list',price:'₹3,800'},
+ {cat:'Heart',name:'Master Cardiac Health Assessment',tests:'42 tests · Resting ECG, 2D Echocardiography, TMT (Treadmill Test), Apo A1/B, HS-CRP, Cardiologist review',prep:'Wear comfortable shoes for treadmill test',price:'₹3,200'},
+ {cat:'Diabetes',name:'Advanced Diabetes & Renal Screening',tests:'36 tests · HbA1c, Fasting & PP Glucose, Urine Microalbumin, Creatinine, Fundus Eye Exam, Foot Neuropathy screening',prep:'8–10 hours overnight fasting',price:'₹1,899'}
+];
+var INSURERS=[['CGHS','Government scheme'],['DGEHS','Government scheme'],['ECHS','Government scheme'],['ESIC','Government scheme'],['Ayushman Bharat PM-JAY','Government scheme'],['Star Health','Insurer'],['HDFC ERGO','Insurer'],['ICICI Lombard','Insurer'],['Niva Bupa','Insurer'],['Care Health','Insurer'],['Medi Assist','TPA'],['Paramount TPA','TPA'],['MDIndia','TPA'],['Vidal Health','TPA']];
+var POSTS=[
+ {slug:'knee-pain-when-to-see-specialist',cat:'Bone & Joint Health',title:'Knee pain that won’t settle: when is it time to see a specialist?',spec:'orthopaedics',min:6,bg:'var(--teal1)'},
+ {slug:'chest-pain-emergency-signs',cat:'Heart Health',title:'Chest discomfort: which symptoms need emergency care?',spec:'cardiology',min:5,bg:'var(--navy1)'},
+ {slug:'first-antenatal-visit',cat:'Women’s Health',title:'Your first antenatal visit: what tests to expect and why',spec:'obstetrics-gynaecology',min:7,bg:'var(--amber1)'},
+ {slug:'child-fever-guide',cat:'Child Healthcare',title:'Fever in children: home care and when to see a doctor',spec:'paediatrics',min:5,bg:'var(--ivory2)'},
+ {slug:'kidney-function-test-explained',cat:'Medical Conditions',title:'Raised creatinine on your report? What it means',spec:'nephrology',min:6,bg:'var(--teal1)'},
+ {slug:'preventive-health-checkup-age',cat:'Preventive Healthcare',title:'Which health check-up do you need at 30, 45 and 60?',spec:'general-medicine',min:4,bg:'var(--navy1)'}
+];
+var PINFO=[
+ {slug:'patient-guide',t:'Patient Guide',d:'What to expect on your visit, from registration to billing.'},
+ {slug:'admission',t:'Admission Process',d:'Documents, deposits and room types.'},
+ {slug:'discharge',t:'Discharge Process',d:'Summary, medicines, bills and follow-up.'},
+ {slug:'visiting-hours',t:'Visiting Hours',d:'Ward and ICU visiting times and rules.'},
+ {slug:'insurance',t:'Insurance & Cashless',d:'Check your insurer and the cashless steps.'},
+ {slug:'government-schemes',t:'Government Health Schemes',d:'CGHS, ECHS, PM-JAY and others.'},
+ {slug:'billing',t:'Billing & Payments',d:'Estimates, deposits and payment modes.'},
+ {slug:'medical-records',t:'Medical Records',d:'How to request copies of your records.'},
+ {slug:'patient-rights',t:'Patient Rights & Responsibilities',d:'Your rights and how to give feedback.'},
+ {slug:'attendant-guidelines',t:'Patient & Attendant Guidelines',d:'Passes, safety and hospital rules.'}
+];
+var FAQS=[
+ ['How do I book an appointment?','Use Book Appointment on any page or call '+PHONE+'. Our team calls you to confirm the time according to the doctor’s OPD schedule.'],
+ ['Do I need a referral to see a specialist?','No. You can book any specialist directly. CGHS and some schemes need a referral for planned treatment.'],
+ ['Which insurance and schemes are accepted?','Use the insurance checker. The final list is confirmed by our TPA desk.'],
+ ['What are the visiting hours?','[11:00–13:00 and 17:00–19:00] for wards. ICU visits are limited — please check with the nursing station.'],
+ ['How do I get my medical records?','Submit a request at the medical records desk with ID. Copies are usually ready in [3–5] working days.']
+];
+
+/* ---------------- SHARED PARTS ---------------- */
+function crumbs(list){var h='<nav class="crumbs" aria-label="Breadcrumb"><a href="#/">Home</a>';list.forEach(function(c,i){h+='<span aria-hidden="true">/</span>'+(c[1]&&i<list.length-1?'<a href="'+c[1]+'">'+c[0]+'</a>':'<span aria-current="page" style="color:var(--ink)">'+c[0]+'</span>');});return h+'</nav>';}
+function pageHero(eyebrow,title,lead,cr,extra){return '<section class="page-hero"><div class="container">'+crumbs(cr)+'<div class="inner">'+(eyebrow?'<div class="eyebrow">'+eyebrow+'</div>':'')+'<h1 class="h1">'+title+'</h1>'+(lead?'<p class="lead">'+lead+'</p>':'')+(extra||'')+'</div></div></section>';}
+function docCard(d){
+  var s=spec(d.spec);
+  return '<article class="doc"><div class="ph-img" style="height:210px;border-radius:0">'
+    +'<img src="'+d.img+'" alt="'+esc(d.name)+'" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\';">'
+    +'<div class="ph-fallback" style="height:100%;width:100%">'+ic('person',40)+'<span>'+d.name+'</span></div>'
+    +'<span class="pill pill-ok" style="position:absolute;top:10px;left:10px">Verified Specialist</span></div>'
+    +'<div class="body"><span class="eyebrow" style="margin:0">'+s.name+'</span><h3 style="font-size:18px">'+d.name+'</h3><span class="muted small" style="line-height:1.3">'+d.qual+'</span>'
+    +'<div class="meta"><span>'+ic('clock',16)+d.exp+' years experience</span><span>'+ic('pin',16)+d.branches.map(function(b){return br(b).name;}).join(', ')+'</span><span class="num">'+ic('cal',16)+d.days.join(', ')+' · '+d.time[0]+'–'+d.time[1]+'</span></div></div>'
+    +'<div class="acts"><a href="#/doctors/'+d.id+'">View profile</a><a href="#/book-appointment?doctor='+d.id+'">Book ('+d.fee+')</a></div></article>';
+}
+function docRow(d){
+  return '<a class="card doc-row" href="#/doctors/'+d.id+'" style="text-decoration:none"><span class="ph-img" style="width:72px;height:72px;border-radius:12px;padding:0;flex-shrink:0">'
+    +'<img src="'+d.img+'" alt="'+esc(d.name)+'" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\';">'
+    +'<span class="ph-fallback" style="height:100%;width:100%">'+ic('person',24)+'</span></span>'
+    +'<span class="stack" style="gap:2px"><strong style="font-family:var(--display);color:var(--navy);font-size:16px">'+d.name+'</strong><span class="muted small">'+d.qual+'</span><span class="small num">'+d.days.join(', ')+' · '+br(d.branches[0]).name+'</span></span></a>';
+}
+function specCard(s){var g=grp(s.g);return '<a class="card" href="#/specialities/'+s.slug+'"><span class="icon-box">'+ic(g.icon,26)+'</span><h3>'+s.name+'</h3><span class="muted small">'+g.name+'</span><span class="more">'+DOCS.filter(function(d){return d.spec===s.slug;}).length+' doctors · View →</span></a>';}
+function ctaBand(t,p,btn,href){return '<section class="section"><div class="container"><div class="cta-band"><div><h2 class="h2">'+t+'</h2><p class="mt-8">'+p+'</p></div><div class="row"><a class="btn btn-primary" href="'+(href||'#/book-appointment')+'">'+(btn||'Book an Appointment')+'</a><a class="btn btn-ghost-light" href="'+TEL+'">Call '+PHONE+'</a></div></div></div></section>';}
+function faqBlock(list){return '<div class="faq">'+list.map(function(f,i){return '<details'+(i===0?' open':'')+'><summary>'+f[0]+'</summary><p>'+f[1]+'</p></details>';}).join('')+'</div>';}
+function emergencyNote(){return '<div class="notice notice-red">'+ic('info',22,'#c8102e')+'<p><strong style="color:var(--red)">Not for emergencies.</strong> For chest pain, breathing difficulty, stroke signs or serious injury, call <a href="'+TEL+'" style="color:var(--red);font-weight:700">'+PHONE+'</a> or go to the <a href="#/emergency-care" style="color:var(--red);font-weight:700">emergency department</a> now.</p></div>';}
+
+/* ---------------- VIEWS ---------------- */
+var V={};
+
+V.home=function(){
+ var g=GROUPS.slice(0,8);
+ return '<section class="hero"><div class="container wrap"><div class="copy"><div class="eyebrow">[NABH] accredited · [City]</div><h1>Specialist care, explained clearly and close to home.</h1><p class="lead" style="max-width:520px;margin-bottom:28px">Find the right doctor, book a consultation and know what to expect — before, during and after your visit.</p><div class="row mb-24"><a class="btn btn-primary" href="#/book-appointment">Book an Appointment</a><a class="btn btn-outline" href="#/specialities">Explore Specialities</a></div><a class="em-card" href="#/emergency-care"><span class="dot">'+ic('phone',20,'#fff')+'</span><span class="stack" style="gap:0;line-height:1.3"><span class="xs" style="color:var(--red);font-weight:700;letter-spacing:.06em">MEDICAL EMERGENCY</span><span class="num" style="font-size:19px;font-weight:700">Call '+PHONE+'</span></span></a></div>'
+ +'<div class="hero-img">'+ph('Photo: doctor in consultation with patient &amp; family','Hospital photoshoot · natural light',null,';height:auto').replace('style="height:240px;height:auto"','')+'<div class="float a"><span class="icon-box" style="width:44px;height:44px">'+ic('cal',22)+'</span><span class="stack" style="gap:0;line-height:1.35"><span class="xs muted">OPD open today</span><strong style="color:var(--navy);font-size:15px">[00] specialists available</strong></span></div><div class="float b"><span class="xs" style="color:var(--navy3);font-weight:600;letter-spacing:.08em">ACCREDITED BY</span><strong style="font-family:var(--display);font-size:18px">[NABH] · [NABL]</strong></div></div></div></section>'
+ +'<section aria-label="Find a doctor"><div class="container"><form class="finder" id="finder"><div class="full row" style="justify-content:space-between"><h2 class="h3">Find a doctor</h2><span class="muted small">'+DOCS.length+' sample profiles across '+SPECS.length+' specialities</span></div><label class="field">Doctor’s name<input class="input" name="q" type="text" placeholder="e.g. Dr Sharma"></label><label class="field">Speciality<select class="input" name="spec"><option value="">All specialities</option>'+SPECS.map(function(s){return '<option value="'+s.slug+'">'+s.name+'</option>';}).join('')+'</select></label><label class="field">Location<select class="input" name="branch"><option value="">All branches</option>'+BRANCHES.map(function(b){return '<option value="'+b.slug+'">'+b.name+'</option>';}).join('')+'</select></label><button class="btn btn-dark" type="submit">'+ic('arrow',18)+'Search</button><div class="full row xs muted" style="gap:8px">Popular: <a class="chip" href="#/specialities/orthopaedics">Knee pain</a><a class="chip" href="#/specialities/obstetrics-gynaecology">Pregnancy care</a><a class="chip" href="#/specialities/cardiology">Chest pain</a><a class="chip" href="#/specialities/nephrology">Dialysis</a><a class="chip" href="#/specialities/paediatrics">Child fever</a></div></form></div></section>'
+ +'<section class="section" style="padding-top:48px" aria-label="At a glance"><div class="container"><div class="stats"><div><div class="n num">[00]</div><div class="muted small">Years of care</div></div><div><div class="n num">[000]</div><div class="muted small">Doctors</div></div><div><div class="n num">[000]</div><div class="muted small">Beds incl. [00] ICU</div></div><div><div class="n num">[00]</div><div class="muted small">Specialities</div></div><div><div class="n">[NABH]</div><div class="muted small">Accredited quality</div></div></div><p class="xs muted mt-8">Figures appear only after hospital verification.</p></div></section>'
+ +'<section class="section alt" aria-labelledby="h-spec"><div class="container"><div class="sec-head"><div><div class="eyebrow">Specialities</div><h2 class="h2" id="h-spec">Care organised around you</h2><p class="lead">Not sure which department you need? Start with the part of the body or the person you’re worried about.</p></div><a class="link-arrow" href="#/specialities">All specialities '+ic('arrow',16)+'</a></div><div class="grid g4">'
+ +g.map(function(x){var list=SPECS.filter(function(s){return s.g===x.id;});var dark=x.id==='critical';return '<a class="card" href="'+(dark?'#/emergency-care':'#/specialities/'+list[0].slug)+'" style="min-height:220px'+(dark?';background:var(--navy);border-color:var(--navy);color:#fff':'')+'"><span class="icon-box"'+(dark?' style="background:var(--navy7)"':'')+'>'+ic(x.icon,26,dark?'#fff':null)+'</span><h3'+(dark?' style="color:#fff"':'')+'>'+x.name+'</h3><span class="small" style="color:'+(dark?'var(--navy3)':'var(--slate)')+'">'+list.map(function(s){return s.name;}).join(' · ')+'</span><span class="more"'+(dark?' style="color:#fff"':'')+'>'+(dark?'Emergency services →':'Explore →')+'</span></a>';}).join('')
+ +'</div></div></section>'
+ +'<section class="section" aria-labelledby="h-why"><div class="container split"><div>'+ph('Photo: nursing team at a bedside','Hospital photoshoot · 4:5',460)+'</div><div><div class="eyebrow">Why patients choose us</div><h2 class="h2 mb-24" id="h-why">Experienced doctors, clear answers and support at every step</h2><div class="grid g2" style="gap:28px">'
+ +[['Experienced specialists','Consultants across [00] specialities, qualifications listed on every profile.'],['Diagnostics under one roof','[MRI, CT, lab and imaging] on site — no second trip for tests.'],['Transparent costs','Consultation fees shown upfront; cashless claims and schemes explained.'],['Emergency support','Emergency department, ICU and ambulance [availability to verify].']].map(function(r,i){return '<div><div style="font-family:var(--display);font-weight:800;color:var(--amber);font-size:15px">0'+(i+1)+'</div><h3 class="mt-8" style="font-size:20px">'+r[0]+'</h3><p class="muted small mt-8">'+r[1]+'</p></div>';}).join('')
+ +'</div><a class="link-arrow mt-32" style="display:inline-flex" href="#/about-us">About the hospital '+ic('arrow',16)+'</a></div></div></section>'
+ +'<section class="section alt" aria-labelledby="h-doc"><div class="container"><div class="sec-head"><div><div class="eyebrow">Our doctors</div><h2 class="h2" id="h-doc">Meet the specialists</h2></div><a class="link-arrow" href="#/doctors">Find all doctors '+ic('arrow',16)+'</a></div><div class="grid g4">'+[DOCS[0],DOCS[3],DOCS[5],DOCS[7]].map(docCard).join('')+'</div></div></section>'
+ +'<section class="section dark" aria-labelledby="h-fac"><div class="container"><div class="sec-head"><div><div class="eyebrow">Facilities &amp; technology</div><h2 class="h2" id="h-fac">Equipped for diagnosis, surgery and critical care</h2><p class="lead" style="color:var(--navy3)">Only facilities the hospital operates are listed.</p></div><a class="link-arrow" style="color:#fff" href="#/facilities">All facilities '+ic('arrow',16)+'</a></div><div class="bento">'
+ +[FAC[1],FAC[3],FAC[2],FAC[4],FAC[5]].map(function(f,i){return '<a class="tile'+(i===0?' big':'')+'" href="#/facilities/'+f.slug+'">'+(i===0?'<span class="xs" style="color:#d6e0ec;margin-bottom:auto">Photo: ICU bay</span>':'')+'<h3>'+f.name+'</h3><p>'+f.d+'</p></a>';}).join('')
+ +'</div></div></section>'
+ +'<section class="section" aria-labelledby="h-j"><div class="container"><div class="center" style="max-width:680px;margin:0 auto 40px"><div class="eyebrow">Your care journey</div><h2 class="h2" id="h-j">What to expect, from first call to follow-up</h2></div><div class="grid g3" style="gap:28px">'
+ +'<div class="step-col"><div class="xs muted" style="font-weight:600;letter-spacing:.08em">STEP 1 · BEFORE</div><h3 class="h3 mt-8">Before your consultation</h3><ul><li>Book online or call the appointment desk</li><li>Get a call confirming your time</li><li>Bring previous reports and ID</li></ul></div>'
+ +'<div class="step-col"><div class="xs muted" style="font-weight:600;letter-spacing:.08em">STEP 2 · DURING</div><h3 class="h3 mt-8">During treatment</h3><ul><li>Your doctor explains findings in plain language</li><li>Tests and admission handled on site</li><li>Insurance desk helps with cashless approval</li></ul></div>'
+ +'<div class="step-col"><div class="xs muted" style="font-weight:600;letter-spacing:.08em">STEP 3 · AFTER</div><h3 class="h3 mt-8">After discharge</h3><ul><li>Written discharge summary and medicines</li><li>Follow-up appointment scheduled</li><li>Medical records on request</li></ul></div></div></div></section>'
+ +'<section class="section alt"><div class="container split rev"><div><div class="eyebrow">Health check-ups</div><h2 class="h2 mb-24">Preventive packages</h2><div class="grid g2">'+PKGS.slice(0,4).map(pkgCard).join('')+'</div><a class="link-arrow mt-24" style="display:inline-flex" href="#/health-packages">All packages '+ic('arrow',16)+'</a></div><div class="panel stack" style="gap:16px;align-self:start"><div class="eyebrow" style="margin:0">Insurance &amp; cashless</div><h2 class="h3">Is my insurance accepted?</h2>'+insChecker('home')+'<a class="link-arrow" href="#/patient-information/insurance">How cashless treatment works '+ic('arrow',16)+'</a></div></div></section>'
+ +'<section class="section" aria-labelledby="h-blog"><div class="container"><div class="sec-head"><div><div class="eyebrow">Health library</div><h2 class="h2" id="h-blog">Answers from our doctors</h2></div><a class="link-arrow" href="#/blog">All articles '+ic('arrow',16)+'</a></div><div class="grid g3">'+POSTS.slice(0,3).map(postCard).join('')+'</div></div></section>'
+ +'<section class="section alt"><div class="container split"><div><div class="eyebrow">FAQs</div><h2 class="h2 mb-24">Common questions</h2>'+faqBlock(FAQS.slice(0,4))+'<a class="link-arrow mt-24" style="display:inline-flex" href="#/faqs">All FAQs '+ic('arrow',16)+'</a></div><div><div class="eyebrow">Locations</div><h2 class="h2 mb-24">Visit us</h2><div class="map-box mb-16">Google Map · loads when tapped</div><div class="stack">'+BRANCHES.map(branchCard).join('')+'</div></div></div></section>'
+ +ctaBand('Ready to see a specialist?','Request an appointment in under two minutes. We’ll call to confirm your time.');
+};
+function pkgCard(p){return '<div class="card"><span class="pill pill-navy" style="align-self:flex-start">'+p.cat+'</span><h3>'+p.name+'</h3><span class="muted small">'+p.tests+'</span><span class="pill pill-warn" style="align-self:flex-start">'+p.prep+'</span><div class="row mt-8" style="justify-content:space-between"><strong style="font-family:var(--display);font-size:22px;color:var(--navy)">'+p.price+'</strong><a class="link-arrow" style="color:var(--amber)" href="#/contact-us?topic=package&name='+encodeURIComponent(p.name)+'">Enquire →</a></div></div>';}
+function postCard(p){return '<article class="stack"><div style="height:200px;border-radius:16px;background:'+p.bg+'"></div><span class="eyebrow" style="margin:6px 0 0">'+p.cat+'</span><h3 style="font-size:20px;line-height:1.35"><a href="#/blog/'+p.slug+'" style="color:var(--navy)">'+p.title+'</a></h3><span class="xs muted">Reviewed by [Doctor name] · '+p.min+' min read</span></article>';}
+function branchCard(b){return '<div class="card"><h3>'+b.name+'</h3><p class="muted small">'+b.addr+'</p><div class="row small" style="gap:16px;font-weight:600"><a href="'+TEL+'">Call '+b.phone+'</a><a href="#/locations/'+b.slug+'">Directions</a><a href="#/locations/'+b.slug+'">Branch page →</a></div></div>';}
+function insChecker(id){return '<label class="field">Insurer, TPA or government scheme<input class="input" type="text" data-ins="'+id+'" list="insList" placeholder="e.g. CGHS, Star Health, PM-JAY" autocomplete="off"></label><datalist id="insList">'+INSURERS.map(function(x){return '<option value="'+x[0]+'">';}).join('')+'</datalist><div data-ins-out="'+id+'" aria-live="polite"></div><p class="xs muted">Sample list for the prototype — replaced with the hospital’s current empanelment list.</p>';}
+
+V.about=function(){
+ return pageHero('About us','Care that starts with listening','[Hospital Name] was founded in [year] with one aim: specialist care that families can reach, understand and afford. [Story to be supplied and approved by the hospital.]',[['About us']])
+ +'<nav class="subnav" aria-label="About sections"><div class="container"><a href="#/about-us">Overview</a><a href="#/about-us/chairman-message">Chairman’s message</a><a href="#/about-us/vision-mission-values">Vision &amp; values</a><a href="#/about-us/our-journey">Our journey</a><a href="#/about-us/leadership">Leadership</a><a href="#/about-us/accreditations">Accreditations</a><a href="#/about-us/quality-and-patient-safety">Quality &amp; safety</a></div></nav>'
+ +'<section class="section"><div class="container split"><div>'+ph('Photo: hospital building exterior','Golden hour · wide',420)+'</div><div class="stack" style="gap:20px"><h2 class="h2">Who we are</h2><p class="lead">[Two to three short paragraphs: founding story, what the hospital is known for, the community it serves.]</p><div class="stats" style="grid-template-columns:repeat(2,1fr)"><div><div class="n">[00]</div><div class="muted small">Years</div></div><div><div class="n">[000]</div><div class="muted small">Beds</div></div><div><div class="n">[000]</div><div class="muted small">Doctors</div></div><div><div class="n">[0]</div><div class="muted small">Locations</div></div></div></div></div></section>'
+ +'<section class="section alt"><div class="container"><h2 class="h2 mb-24">Explore</h2><div class="grid g3">'
+ +[['chairman-message','Chairman’s message','A letter from our chairman.'],['vision-mission-values','Vision, mission & values','What guides our care.'],['our-journey','Our journey','Milestones since [year].'],['leadership','Leadership team','The people who run the hospital.'],['accreditations','Accreditations','NABH, NABL and certifications.'],['quality-and-patient-safety','Quality & patient safety','How we keep care safe.']].map(function(x){return '<a class="card" href="#/about-us/'+x[0]+'"><h3>'+x[1]+'</h3><p class="muted small">'+x[2]+'</p><span class="more">Read →</span></a>';}).join('')
+ +'</div></div></section>'+ctaBand('Find the right specialist','Search by name, speciality or branch.','Find a doctor','#/doctors');
+};
+V.aboutSub=function(slug){
+ var map={
+ 'chairman-message':['Chairman’s message','<div class="split"><div>'+ph('Portrait: Chairman','Approved photo',420)+'</div><div class="article"><p class="lead">“[Chairman’s message, approved text — 3 to 5 short paragraphs on the hospital’s purpose and commitment to patients.]”</p><p class="muted">[Paragraph 2]</p><p class="muted">[Paragraph 3]</p><p><strong>[Name]</strong><br><span class="muted">Chairman, [Hospital Name]</span></p></div></div>'],
+ 'vision-mission-values':['Vision, mission & values','<div class="grid g3">'+[['Vision','[One sentence vision statement]'],['Mission','[One to two sentence mission]'],['Values','Compassion · Integrity · Clinical excellence · Respect · Transparency [confirm]']].map(function(x){return '<div class="card"><h3>'+x[0]+'</h3><p class="muted">'+x[1]+'</p></div>';}).join('')+'</div>'],
+ 'our-journey':['Our journey','<div class="timeline" style="max-width:720px">'+[['[Year]','Hospital founded with [00] beds'],['[Year]','NABH accreditation'],['[Year]','ICU and cath lab added'],['[Year]','Second branch opened'],['[Year]','[Milestone]']].map(function(x){return '<div><strong style="font-family:var(--display);color:var(--teal)">'+x[0]+'</strong><p class="h3" style="font-size:20px;color:var(--navy)">'+x[1]+'</p></div>';}).join('')+'</div>'],
+ 'leadership':['Leadership team','<div class="grid g4">'+['Chairman','Managing Director','Medical Director','Director & CEO'].map(function(r){return '<div class="card">'+ph('Portrait','',200)+'<h3>[Name]</h3><p class="muted small">'+r+'</p></div>';}).join('')+'</div>'],
+ 'accreditations':['Accreditations & certifications','<div class="grid g3">'+[['NABH','National Accreditation Board for Hospitals & Healthcare Providers'],['NABL','Laboratory accreditation'],['[Other]','[Certification]']].map(function(x){return '<div class="card"><span class="pill pill-ok" style="align-self:flex-start">Certificate PDF</span><h3>'+x[0]+'</h3><p class="muted small">'+x[1]+'</p><p class="xs muted">Valid until [date] · <a href="#/about-us/accreditations">View certificate</a></p></div>';}).join('')+'</div>'],
+ 'quality-and-patient-safety':['Quality & patient safety','<div class="split"><div class="article"><p class="lead">[How the hospital monitors quality: infection control, medication safety, patient identification, feedback and audits.]</p></div><div class="stack">'+['Infection prevention & control','Medication safety','Patient identification','Fall prevention','Feedback & grievance redressal'].map(function(x){return '<div class="lrow"><span>'+x+'</span><span>'+ic('check',18,'#1e7a46')+'</span></div>';}).join('')+'</div></div>']
+ };
+ var m=map[slug]||map['vision-mission-values'];
+ return pageHero('About us',m[0],null,[['About us','#/about-us'],[m[0]]])+'<section class="section"><div class="container">'+m[1]+'</div></section>'+ctaBand('Book a consultation','Our team will call to confirm your time.');
+};
+
+V.specialities=function(){
+ return pageHero('Specialities','Find the right care','Grouped by the part of the body or the person you’re worried about. Search if you know what you’re looking for.',[['Specialities']],'<label class="field mt-24" style="max-width:520px">Search specialities or symptoms<input class="input" id="specSearch" type="search" placeholder="e.g. heart, knee, pregnancy, kidney"></label>')
+ +'<section class="section"><div class="container" id="specList">'+GROUPS.map(function(g){var list=SPECS.filter(function(s){return s.g===g.id;});return '<div class="mb-24" data-group><h2 class="h3 mb-16" style="display:flex;gap:12px;align-items:center"><span class="icon-box" style="width:40px;height:40px">'+ic(g.icon,20)+'</span>'+g.name+'</h2><div class="grid g4" style="margin-bottom:28px">'+list.map(function(s){return '<div data-name="'+(s.name+' '+g.name).toLowerCase()+'">'+specCard(s)+'</div>';}).join('')+'</div></div>';}).join('')+'<p id="specEmpty" class="muted" hidden>No specialities match. <a href="#/contact-us">Ask us</a> and we’ll guide you.</p></div></section>'
+ +ctaBand('Not sure where to start?','Call us and we’ll guide you to the right specialist.','Book a General Medicine visit','#/book-appointment?spec=general-medicine');
+};
+
+V.spec=function(slug){
+ var s=spec(slug);if(!s)return V.notfound();var g=grp(s.g);
+ var docs=DOCS.filter(function(d){return d.spec===slug;});
+ var cond=s.cond||GEN_COND.map(function(c){return [c,'[Short description]'];});
+ return '<section class="page-hero"><div class="container">'+crumbs([['Specialities','#/specialities'],[s.name]])+'<div class="inner split side" style="align-items:start"><div><div class="eyebrow">'+g.name+'</div><h1 class="h1">'+s.name+'</h1><p class="lead" style="color:var(--ink)">'+(s.blurb||'[Two-sentence introduction to this department, written in plain English and approved by the head of department.]')+'</p><div class="row mt-24"><a class="btn btn-primary" href="#/book-appointment?spec='+slug+'">Book a consultation</a><a class="btn btn-outline" href="'+TEL+'">Call '+PHONE+'</a></div></div><aside class="panel"><div class="xs muted mb-16" style="font-weight:600;letter-spacing:.08em">AT A GLANCE</div><div class="lrow"><span>Doctors</span><span class="num">'+docs.length+'</span></div><div class="lrow"><span>Available at</span><span>'+BRANCHES.map(function(b){return b.name;}).join(', ')+'</span></div><div class="lrow"><span>OPD</span><span>Mon–Sat</span></div><div class="lrow" style="border:0"><span>Cashless</span><span style="color:var(--ok)">CGHS · TPAs [verify]</span></div></aside></div></div></section>'
+ +'<nav class="subnav" aria-label="On this page"><div class="container"><a href="javascript:void(0)" data-jump="cond">Conditions</a><a href="javascript:void(0)" data-jump="when">When to seek care</a><a href="javascript:void(0)" data-jump="tests">Tests &amp; treatment</a><a href="javascript:void(0)" data-jump="docs">Doctors</a><a href="javascript:void(0)" data-jump="faq">FAQs</a></div></nav>'
+ +'<section class="section" id="cond"><div class="container split"><div><h2 class="h2">Conditions we treat</h2><p class="muted mt-16">Not sure your condition is listed? <a href="#/contact-us">Ask us</a> and we’ll tell you whether this is the right department.</p></div><div class="grid g2" style="gap:0 32px">'+cond.map(function(c){return '<div style="padding:16px 0;border-bottom:1px solid var(--stone)"><h3 style="font-size:18px">'+c[0]+'</h3><p class="muted small">'+c[1]+'</p></div>';}).join('')+'</div></div></section>'
+ +'<section class="section alt" id="when"><div class="container"><h2 class="h2 mb-24">When to seek care</h2><div class="grid g2"><div class="panel" style="background:var(--red1);border-color:#f3c6cd"><div class="xs" style="color:var(--red);font-weight:700;letter-spacing:.08em">GO TO EMERGENCY NOW</div><ul class="mt-8" style="padding-left:20px;line-height:1.8">'+(s.urgent||['[Red-flag symptoms supplied by the department]']).map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul><a class="btn btn-em mt-16" href="#/emergency-care">Emergency: '+PHONE+'</a></div><div class="panel"><div class="xs" style="color:var(--navy7);font-weight:700;letter-spacing:.08em">BOOK A CONSULTATION</div><ul class="mt-8" style="padding-left:20px;line-height:1.8">'+(s.book||['[Common reasons to book]']).map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul><a class="btn btn-primary mt-16" href="#/book-appointment?spec='+slug+'">Book appointment</a></div></div></div></section>'
+ +'<section class="section" id="tests"><div class="container split"><div><h2 class="h2">Tests your doctor may advise</h2><p class="muted mt-8 mb-24">Only what your symptoms call for. [Confirm per branch.]</p><div class="stack">'+(s.tests||[['[Test]','[What it is]']]).map(function(t){return '<div class="card" style="flex-direction:row;gap:14px;padding:16px 18px"><span class="icon-box" style="width:36px;height:36px">'+ic('brain',18)+'</span><span><strong style="color:var(--navy)">'+t[0]+'</strong><br><span class="muted small">'+t[1]+'</span></span></div>';}).join('')+'</div></div><div><h2 class="h2 mb-24">How treatment works</h2><ol class="stack" style="list-style:none;padding:0;gap:24px">'+[['Assessment','Your history, risk factors and results are reviewed together.'],['Medicines & lifestyle','Often the first step, explained clearly.'],['Procedures, if needed','[List only procedures the hospital performs.]'],['Follow-up','Scheduled reviews to track progress.']].map(function(x,i){return '<li style="display:flex;gap:16px"><span style="width:40px;height:40px;border-radius:999px;background:var(--navy);color:#fff;font-family:var(--display);font-weight:800;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">'+(i+1)+'</span><span><h3 style="font-size:19px">'+x[0]+'</h3><p class="muted small">'+x[1]+'</p></span></li>';}).join('')+'</ol><a class="link-arrow mt-16" style="display:inline-flex" href="#/facilities">Related facilities '+ic('arrow',16)+'</a></div></div></section>'
+ +'<section class="section alt" id="docs"><div class="container"><div class="sec-head"><h2 class="h2">'+s.name+' doctors</h2><a class="link-arrow" href="#/doctors?spec='+slug+'">All '+s.name+' doctors →</a></div>'+(docs.length?'<div class="grid g3">'+docs.map(docRow).join('')+'</div>':'<p class="muted">[Doctors to be added.]</p>')+'</div></section>'
+ +'<section class="section" id="faq"><div class="container split"><h2 class="h2">Questions about '+s.name.toLowerCase()+'</h2>'+faqBlock([['What should I bring to my first visit?','Previous reports, prescriptions, a list of current medicines and ID.'],['Is treatment covered by insurance?','Most planned treatments are, subject to your policy. Use the insurance checker or ask our TPA desk.'],['Do I need to fast before tests?','Some blood tests need fasting. We’ll tell you when you book.']])+'</div></section>'
+ +'<section class="container" style="padding-bottom:24px"><h2 class="xs muted mb-16" style="font-family:var(--sans);font-weight:600;letter-spacing:.08em">RELATED SPECIALITIES</h2><div class="row">'+(s.related||[]).map(function(r){var x=spec(r);return x?'<a class="chip" href="#/specialities/'+r+'">'+x.name+'</a>':'';}).join('')+'</div></section>'
+ +ctaBand('Talk to a specialist','Request a time and we’ll call to confirm.','Book '+s.name,'#/book-appointment?spec='+slug);
+};
+
+V.doctors=function(q){
+ return pageHero('Find a doctor','Our doctors','Search by name, or filter by speciality, branch and OPD day.',[['Doctors']])
+ +'<section class="section" style="padding-top:32px"><div class="container"><form class="panel" id="docFilter" style="display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));align-items:end"><label class="field">Name<input class="input" name="q" type="search" placeholder="Doctor’s name" value="'+esc(q.q||'')+'"></label><label class="field">Speciality<select class="input" name="spec"><option value="">All specialities</option>'+SPECS.map(function(s){return '<option value="'+s.slug+'"'+(q.spec===s.slug?' selected':'')+'>'+s.name+'</option>';}).join('')+'</select></label><label class="field">Branch<select class="input" name="branch"><option value="">All branches</option>'+BRANCHES.map(function(b){return '<option value="'+b.slug+'"'+(q.branch===b.slug?' selected':'')+'>'+b.name+'</option>';}).join('')+'</select></label><label class="field">OPD day<select class="input" name="day"><option value="">Any day</option>'+['Mon','Tue','Wed','Thu','Fri','Sat'].map(function(d){return '<option>'+d+'</option>';}).join('')+'</select></label><button type="reset" class="btn btn-outline">Clear filters</button></form><p class="mt-24 mb-16" aria-live="polite"><strong id="docCount"></strong></p><div class="grid g4" id="docGrid"></div><p id="docEmpty" class="muted" hidden>No doctors match these filters. Try another day or branch, or <a href="#/contact-us">ask our desk</a>.</p></div></section>';
+};
+function filterDocs(){
+ var f=document.getElementById('docFilter');if(!f)return;
+ var qInp = (f.elements && f.elements['q']) || f.q;
+ var sInp = (f.elements && f.elements['spec']) || f.spec;
+ var bInp = (f.elements && f.elements['branch']) || f.branch;
+ var dInp = (f.elements && f.elements['day']) || f.day;
+ var q = qInp ? qInp.value.trim().toLowerCase() : '';
+ var s = sInp ? sInp.value : '';
+ var b = bInp ? bInp.value : '';
+ var d = dInp ? dInp.value : '';
+ var res=DOCS.filter(function(x){return (!q||x.name.toLowerCase().indexOf(q)>-1||spec(x.spec).name.toLowerCase().indexOf(q)>-1)&&(!s||x.spec===s)&&(!b||x.branches.indexOf(b)>-1)&&(!d||x.days.indexOf(d)>-1);});
+ document.getElementById('docGrid').innerHTML=res.map(docCard).join('');
+ document.getElementById('docCount').textContent=res.length+' doctor'+(res.length===1?'':'s')+' found';
+ document.getElementById('docEmpty').hidden=res.length>0;
+}
+
+V.doctor=function(id){
+ var d=doc(id);if(!d)return V.notfound();var s=spec(d.spec);
+ var today=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][new Date().getDay()];
+ var others=DOCS.filter(function(x){return x.spec===d.spec&&x.id!==d.id;}).concat(DOCS.filter(function(x){return x.spec!==d.spec;})).slice(0,3);
+ return '<div class="container">'+crumbs([['Doctors','#/doctors'],[s.name,'#/specialities/'+s.slug],[d.name]])+'</div>'
+ +'<section class="section" style="padding-top:32px"><div class="container split side"><div class="stack" style="gap:40px"><div class="row" style="align-items:flex-start;gap:28px"><div style="width:220px;max-width:100%;position:relative">'+ph('Professional portrait','',270)+'<span class="pill pill-warn" style="position:absolute;top:10px;left:10px">Sample data</span></div><div class="stack" style="flex:1 1 300px;gap:8px"><span class="eyebrow" style="margin:0">'+s.name+'</span><h1 class="h1" style="font-size:clamp(32px,5vw,44px)">'+d.name+'</h1><span style="font-size:19px;font-weight:500">'+d.title+', '+s.name+'</span><span class="muted">'+d.qual+'</span><div class="grid g3 mt-8" style="gap:10px"><div class="panel" style="padding:14px;background:var(--ivory);border:0"><div class="xs muted">Experience</div><strong class="num">'+d.exp+' years</strong></div><div class="panel" style="padding:14px;background:var(--ivory);border:0"><div class="xs muted">Consultation fee</div><strong class="num">'+d.fee+'</strong></div><div class="panel" style="padding:14px;background:var(--ivory);border:0"><div class="xs muted">Languages</div><strong>'+d.lang+'</strong></div></div><span class="small muted row" style="gap:6px">'+ic('pin',16)+d.branches.map(function(b){return '<a href="#/locations/'+b+'">'+br(b).name+'</a>';}).join(' · ')+'</span></div></div>'
+ +'<div><h2 class="h3 mb-16">About</h2><p>[Bio supplied and approved by the doctor: clinical focus, approach to patients, years of practice. Plain English, no superlatives.]</p></div>'
+ +'<div><h2 class="h3 mb-16">Areas of expertise</h2><div class="row">'+(s.cond||GEN_COND.map(function(c){return [c];})).slice(0,5).map(function(c){return '<span class="pill pill-navy" style="padding:8px 14px;font-size:14px">'+c[0]+'</span>';}).join('')+'</div><h3 class="mt-24 mb-16" style="font-size:18px">Procedures performed</h3><ul style="padding-left:20px;line-height:1.9"><li>[Procedure 1]</li><li>[Procedure 2]</li><li>[Procedure 3]</li></ul></div>'
+ +'<div class="grid g2"><div><h2 class="h3 mb-16">Education</h2><div class="stack">'+d.qual.split(', ').reverse().map(function(q){return '<div style="border-left:2px solid var(--stone);padding-left:16px"><strong>'+q+'</strong><br><span class="muted small">[Institution], [Year]</span></div>';}).join('')+'</div></div><div><h2 class="h3 mb-16">Registration &amp; memberships</h2><div class="panel" style="background:var(--ivory);border:0;padding:16px"><div class="xs muted">Medical council registration</div><strong class="num">[State Medical Council] · Reg. no. [00000]</strong></div><ul class="mt-16" style="padding-left:20px;line-height:1.9"><li>[Professional society]</li><li>[Indian Medical Association]</li></ul></div></div></div>'
+ +'<aside class="panel summary" style="padding:0;overflow:hidden;box-shadow:var(--sh-md)"><div style="padding:22px 22px 10px"><h2 class="h3">OPD schedule</h2><p class="xs muted mt-8">'+br(d.branches[0]).name+'</p></div><table class="sched num"><tbody>'+['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(function(day){var on=d.days.indexOf(day)>-1;return '<tr'+(day===today?' class="today"':'')+'><th scope="row">'+day+(day===today?' · Today':'')+'</th><td style="color:'+(on?'var(--ink)':'var(--slate)')+'">'+(on?d.time[0]+' – '+d.time[1]:'Not available')+'</td></tr>';}).join('')+'</tbody></table><div class="stack" style="padding:20px 22px 22px;border-top:1px solid var(--stone)"><a class="btn btn-primary btn-block" href="#/book-appointment?doctor='+d.id+'">Book with '+d.name.replace('Dr ','Dr. ')+'</a><a class="btn btn-outline btn-block" href="'+TEL+'">Call '+PHONE+'</a><span class="xs muted center">Timings may change on holidays. We confirm every booking by phone.</span></div></aside></div></section>'
+ +'<section class="section alt"><div class="container"><h2 class="h2 mb-24">Related doctors</h2><div class="grid g3">'+others.map(docRow).join('')+'</div></div></section>';
+};
+
+V.facilities=function(){
+ return pageHero('Facilities & infrastructure','Equipped for every stage of care','Only facilities the hospital operates are shown. Each page explains what it means for you as a patient.',[['Facilities']])
+ +'<section class="section"><div class="container"><div class="grid g3">'+FAC.map(function(f){return '<a class="card" href="#/facilities/'+f.slug+'">'+ph('Photo: '+f.name,'',180)+'<h3>'+f.name+'</h3><p class="muted small">'+f.d+'</p><span class="more">Learn more →</span></a>';}).join('')+'</div></div></section>'+ctaBand('Questions about a facility?','Our desk can tell you what’s available at each branch.','Contact us','#/contact-us');
+};
+V.facility=function(slug){
+ var f=null;FAC.forEach(function(x){if(x.slug===slug)f=x;});if(!f)return V.notfound();
+ return pageHero('Facility',f.name,f.d,[['Facilities','#/facilities'],[f.name]],'<div class="row mt-24"><a class="btn btn-primary" href="#/book-appointment">Book appointment</a><a class="btn btn-outline" href="#/contact-us">Enquire</a></div>')
+ +'<section class="section"><div class="container split"><div>'+ph('Photo: '+f.name,'Hospital photoshoot',380)+'</div><div class="stack" style="gap:24px">'+[['What this facility offers','[Two to three sentences, in plain English.]'],['Why you may need it','[When a patient would be referred here.]'],['Infrastructure','[Equipment, capacity — verified only.]'],['Team','[Who leads and staffs it.]'],['Your visit','[Preparation, timings, what to bring.]']].map(function(x){return '<div><h2 class="h3">'+x[0]+'</h2><p class="muted mt-8">'+x[1]+'</p></div>';}).join('')+'<div><h2 class="xs muted mb-16" style="font-family:var(--sans);letter-spacing:.08em">RELATED SPECIALITIES</h2><div class="row"><a class="chip" href="#/specialities/cardiology">Cardiology</a><a class="chip" href="#/specialities/critical-care">Critical Care</a></div></div></div></div></section>';
+};
+
+V.pinfo=function(){
+ return pageHero('Patients & visitors','Everything you need for your visit','Quick answers on admission, visiting, billing, insurance and records.',[['Patient information']])
+ +'<section class="section"><div class="container"><div class="grid g3">'+PINFO.map(function(p){return '<a class="card" href="#/patient-information/'+p.slug+'"><span class="icon-box">'+ic('doc',24)+'</span><h3>'+p.t+'</h3><p class="muted small">'+p.d+'</p><span class="more">Read →</span></a>';}).join('')+'</div></div></section>'
+ +'<section class="section alt"><div class="container split"><h2 class="h2">Frequently asked</h2>'+faqBlock(FAQS)+'</div></section>';
+};
+V.pinfoSub=function(slug){
+ if(slug==='insurance')return V.insurance();
+ var p=null;PINFO.forEach(function(x){if(x.slug===slug)p=x;});if(!p)return V.notfound();
+ var body={
+  'visiting-hours':'<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Area</th><th>Visiting time</th><th>Visitors</th></tr></thead><tbody><tr><td>General ward</td><td class="num">[11:00–13:00, 17:00–19:00]</td><td>[2 at a time]</td></tr><tr><td>Private rooms</td><td class="num">[11:00–20:00]</td><td>[2 at a time]</td></tr><tr><td>ICU</td><td class="num">[16:00–16:30]</td><td>[1, with pass]</td></tr><tr><td>NICU</td><td>Parents only</td><td>—</td></tr></tbody></table></div>',
+  'admission':'<ol class="stack" style="padding-left:20px;gap:14px"><li><strong>Admission advice</strong> from your doctor.</li><li><strong>Admission desk:</strong> ID, insurance card, doctor’s note.</li><li><strong>Estimate &amp; deposit</strong> explained before admission.</li><li><strong>Room allocation</strong> as per availability and preference.</li><li><strong>Cashless pre-authorisation</strong> raised by our TPA desk.</li></ol>',
+  'discharge':'<ol class="stack" style="padding-left:20px;gap:14px"><li>Doctor confirms discharge.</li><li>Discharge summary and medicines explained.</li><li>Final bill and insurance settlement.</li><li>Follow-up appointment booked.</li></ol>'
+ }[slug]||'<p class="lead">[Content for this page to be supplied by the hospital and reviewed for accuracy.]</p><ul class="mt-16" style="padding-left:20px;line-height:1.9"><li>[Key point]</li><li>[Key point]</li><li>[Key point]</li></ul>';
+ return pageHero('Patient information',p.t,p.d,[['Patient information','#/patient-information'],[p.t]])
+ +'<section class="section"><div class="container split side"><div class="article">'+body+'</div><aside class="panel stack"><h2 class="h3">More for patients</h2>'+PINFO.filter(function(x){return x.slug!==slug;}).slice(0,6).map(function(x){return '<a href="#/patient-information/'+x.slug+'" class="small" style="font-weight:600">'+x.t+' →</a>';}).join('')+'<a class="btn btn-outline mt-8" href="#/contact-us">Ask a question</a></aside></div></section>';
+};
+V.insurance=function(){
+ return pageHero('Insurance & cashless','Is my insurance accepted?','Check your insurer, TPA or government scheme, then follow the cashless steps below.',[['Patient information','#/patient-information'],['Insurance & cashless']])
+ +'<section class="section"><div class="container split"><div class="panel stack" style="gap:16px;align-self:start">'+insChecker('page')+'</div><div><h2 class="h2 mb-24">How cashless treatment works</h2><ol class="stack" style="list-style:none;padding:0;gap:22px">'+[['Show your card','Bring your health card or e-card and photo ID to the TPA desk.'],['Pre-authorisation','We send the request to your insurer — usually [4–6] hours for planned care.'],['Treatment','Your treatment goes ahead. Emergencies are never delayed for paperwork.'],['Discharge settlement','Final approval at discharge. You pay only non-covered items.']].map(function(x,i){return '<li style="display:flex;gap:16px"><span style="width:40px;height:40px;border-radius:999px;background:var(--teal1);color:var(--teal);font-family:var(--display);font-weight:800;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">'+(i+1)+'</span><span><h3 style="font-size:19px">'+x[0]+'</h3><p class="muted small">'+x[1]+'</p></span></li>';}).join('')+'</ol><div class="notice notice-navy mt-24">'+ic('phone',20)+'<p>TPA desk: <a href="'+TEL+'" style="font-weight:700">[000-0000000]</a> · [09:00–19:00]</p></div></div></div></section>'
+ +'<section class="section alt"><div class="container"><h2 class="h2 mb-24">Empanelled schemes &amp; insurers <span class="pill pill-warn" style="vertical-align:middle">Sample list</span></h2><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Name</th><th>Type</th><th>Cashless</th></tr></thead><tbody>'+INSURERS.map(function(x){return '<tr><td>'+x[0]+'</td><td>'+x[1]+'</td><td>[Verify]</td></tr>';}).join('')+'</tbody></table></div></div></section>';
+};
+function bindIns(){
+ document.querySelectorAll('[data-ins]').forEach(function(inp){
+  var out=document.querySelector('[data-ins-out="'+inp.getAttribute('data-ins')+'"]');
+  inp.addEventListener('input',function(){
+   var v=inp.value.trim().toLowerCase();if(v.length<2){out.innerHTML='';return;}
+   var hit=INSURERS.filter(function(x){return x[0].toLowerCase().indexOf(v)>-1;});
+   out.innerHTML=hit.length?'<div class="notice notice-ok">'+ic('check',20,'#1e7a46')+'<span>'+esc(hit[0][0])+' ('+hit[0][1]+') — cashless accepted <span style="font-weight:400">(sample)</span></span></div>':'<div class="notice notice-warn">'+ic('info',20,'#8f5b12')+'<span>Not on our list yet. Call the TPA desk — many policies can still be processed.</span></div>';
+  });
+ });
+}
+
+V.packages=function(){
+ var cats=['All'].concat(PKGS.map(function(p){return p.cat;}));
+ return pageHero('Health packages','Preventive health check-ups','Catch problems early. Every package includes a doctor’s review of your results.',[['Health packages']])
+ +'<section class="section"><div class="container"><div class="row mb-24" role="group" aria-label="Filter packages">'+cats.map(function(c,i){return '<button type="button" class="chip" data-pkg="'+c+'" aria-pressed="'+(i===0)+'">'+c+'</button>';}).join('')+'</div><div class="grid g3" id="pkgGrid">'+PKGS.map(function(p){return '<div data-cat="'+p.cat+'">'+pkgCard(p)+'</div>';}).join('')+'</div><div class="notice notice-navy mt-32">'+ic('info',20)+'<p>Prices and included tests are placeholders until the hospital confirms them. Corporate packages available on request.</p></div></div></section>'
+ +ctaBand('Book a health check-up','Choose a date and we’ll send preparation instructions.','Enquire now','#/contact-us?topic=package');
+};
+
+/* ---------------- BOOKING FLOW ---------------- */
+var B={step:1,spec:'',doctor:'',branch:'',date:'',time:'',name:'',mobile:'',age:'',gender:'',email:'',reason:'',consent:false,ref:''};
+function resetB(q){B={step:1,spec:'',doctor:'',branch:'',date:'',time:'',name:'',mobile:'',age:'',gender:'',email:'',reason:'',consent:false,ref:''};
+ if(q.doctor&&doc(q.doctor)){var d=doc(q.doctor);B.spec=d.spec;B.doctor=d.id;B.branch=d.branches[0];B.step=3;}
+ else if(q.spec&&spec(q.spec)){B.spec=q.spec;B.step=2;}}
+V.booking=function(q){resetB(q);return '<div id="bookRoot"></div>';};
+function nextDays(){var out=[],d=new Date();for(var i=0;i<10&&out.length<7;i++){var x=new Date(d.getFullYear(),d.getMonth(),d.getDate()+i);out.push(x);}return out;}
+var DOW=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function renderBooking(){
+ var root=document.getElementById('bookRoot');if(!root)return;
+ var labels=['Speciality','Doctor','Date & time','Your details','Done'];
+ var h='<section class="section" style="padding-top:24px;background:var(--ivory);min-height:70vh"><div class="container">'+crumbs([['Book appointment']])
+ +'<div class="mt-24 mb-24"><h1 class="h1" style="font-size:clamp(30px,5vw,40px)">Book an appointment</h1><p class="muted mt-8">Takes about 2 minutes. We’ll call you to confirm.</p></div>'
+ +'<div class="notice notice-warn mb-24" style="font-weight:600">'+ic('info',20,'#8f5b12')+'<span>Prototype: slots and doctors are sample data. A real booking is confirmed only after the hospital system is connected.</span></div>'
+ +'<ol class="stepper" aria-label="Booking progress">'+labels.map(function(l,i){var n=i+1;return '<li class="'+(n<B.step?'done':n===B.step?'cur':'')+'"'+(n===B.step?' aria-current="step"':'')+'><span>'+n+'<span class="lbl"> · '+l+'</span></span></li>';}).join('')+'</ol>'
+ +'<div class="split side">'+'<div class="stack" style="gap:20px">'+bookStep()+(B.step<5?emergencyNote():'')+'</div>'+(B.step<5?bookSummary():'<div></div>')+'</div></div></section>';
+ root.innerHTML=h;bindBooking();
+}
+function bookStep(){
+ if(B.step===1){return '<div class="panel"><h2 class="h3 mb-16">Which speciality do you need?</h2><div class="opt-grid">'+SPECS.filter(function(s){return DOCS.some(function(d){return d.spec===s.slug;});}).map(function(s){return '<button type="button" class="opt" data-set="spec" data-val="'+s.slug+'" aria-pressed="'+(B.spec===s.slug)+'"><span class="icon-box" style="width:36px;height:36px">'+ic(grp(s.g).icon,18)+'</span><span style="font-weight:600;font-size:15px">'+s.name+'</span></button>';}).join('')+'</div><p class="small muted mt-16">Not sure? Choose <button type="button" class="link-arrow" style="background:none;border:0;padding:0;color:var(--navy7)" data-set="spec" data-val="general-medicine">General Medicine</button> and the doctor will guide you.</p></div>';}
+ if(B.step===2){var list=DOCS.filter(function(d){return d.spec===B.spec;});return '<div class="panel"><div class="row mb-16" style="justify-content:space-between"><h2 class="h3">Choose a doctor</h2><button type="button" class="link-arrow" style="background:none;border:0;color:var(--navy7)" data-go="1">← Change speciality</button></div><div class="stack">'+list.map(function(d){return '<button type="button" class="opt" data-set="doctor" data-val="'+d.id+'" aria-pressed="'+(B.doctor===d.id)+'" style="justify-content:space-between;flex-wrap:wrap"><span class="row" style="gap:12px"><span class="ph-img" style="width:52px;height:52px;padding:0;border-radius:10px"><img src="'+d.img+'" alt="'+esc(d.name)+'" style="width:100%;height:100%;object-fit:cover;border-radius:10px"></span><span style="text-align:left"><strong style="color:var(--navy)">'+d.name+'</strong><br><span class="small muted">'+d.qual+' · '+d.days.join(', ')+'</span></span></span><span class="small" style="font-weight:600">'+d.fee+'</span></button>';}).join('')+'<button type="button" class="opt" data-set="doctor" data-val="any" aria-pressed="'+(B.doctor==='any')+'"><strong style="color:var(--navy)">Any available doctor</strong><span class="small muted">— earliest appointment</span></button></div></div>';}
+ if(B.step===3){var d=doc(B.doctor);var branches=d?d.branches:BRANCHES.map(function(b){return b.slug;});if(!B.branch)B.branch=branches[0];
+  var days=nextDays();var times=['09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','17:00','17:30','18:00','18:30','19:00'];
+  return '<div class="panel"><div class="row mb-16" style="justify-content:space-between"><h2 class="h3">Hospital Branch</h2><button type="button" class="link-arrow" style="background:none;border:0;color:var(--navy7)" data-go="2">← Change doctor</button></div><div class="opt-grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">'+branches.map(function(b){return '<button type="button" class="opt" data-set="branch" data-val="'+b+'" aria-pressed="'+(B.branch===b)+'">'+ic('pin',18)+'<span style="font-weight:600">'+br(b).name+'</span></button>';}).join('')+'</div>'
+  +'<h2 class="h3 mt-32 mb-16">Select Appointment Date</h2><div class="dates">'+days.map(function(x){var key=x.toDateString();var dow=DOW[x.getDay()];var off=x.getDay()===0||(d&&d.days.indexOf(dow)<0);return '<button type="button" class="date" data-set="date" data-val="'+key+'" aria-pressed="'+(B.date===key)+'"'+(off?' disabled aria-label="'+dow+' '+x.getDate()+' not available"':'')+'><small>'+dow.toUpperCase()+'</small><b>'+x.getDate()+'</b><small>'+(off?'No OPD':MON[x.getMonth()])+'</small></button>';}).join('')+'</div>'
+  +'<h2 class="h3 mt-32 mb-16">Preferred Consultation Time Slot</h2>'+(B.date?'<div class="slots">'+times.map(function(t,i){var full=(i*7+B.date.length)%7===0;return '<button type="button" class="slot" data-set="time" data-val="'+t+'" aria-pressed="'+(B.time===t)+'"'+(full?' disabled aria-label="'+t+' full"':'')+'>'+t+'</button>';}).join('')+'</div><p class="xs muted mt-8">Crossed-out slots are already reserved. The front desk confirms the exact slot.</p>':'<p class="muted small">Please select an available consultation date first.</p>')
+  +'<div class="row mt-32" style="justify-content:space-between"><button type="button" class="btn btn-outline" data-go="2">Back</button><button type="button" class="btn btn-primary" data-go="4" '+(B.date&&B.time?'':'disabled style="opacity:.5;cursor:not-allowed"')+'>Continue to Patient Details →</button></div></div>';}
+ if(B.step===4){return '<form class="panel" id="patientForm" novalidate>'
+  +'<div class="row" style="justify-content:space-between;align-items:center;margin-bottom:12px"><h2 class="h3">Patient Details</h2><button type="button" class="btn btn-sm btn-outline" id="btnAutofill" style="border-color:var(--teal);color:var(--teal);font-weight:700">⚡ Autofill Test Patient Data</button></div>'
+  +'<p class="muted small mb-24">Only essential contact details required to verify and schedule your hospital visit.</p><div class="grid g2" style="gap:18px">'
+  +fld('name','Patient’s Full Name','text','e.g. Rahul Sharma','Please enter the patient’s full name')
+  +fld('mobile','Mobile Phone Number','tel','e.g. 9876543210 or +91 98765 43210','Enter a valid 10-digit mobile number')
+  +fld('age','Patient Age','text','e.g. 36','Enter valid age (0–120)',' inputmode="numeric"')
+  +'<label class="field">Gender <span class="opt">(optional)</span><select class="input" name="gender"><option value="">Prefer not to say</option><option'+(B.gender==='Female'?' selected':'')+'>Female</option><option'+(B.gender==='Male'?' selected':'')+'>Male</option><option'+(B.gender==='Other'?' selected':'')+'>Other</option></select></label>'
+  +fld('email','Email Address','email','e.g. name@example.com (for appointment pass)','Enter a valid email address or leave blank','',true)
+  +'<label class="field" style="grid-column:1/-1">Reason for Visit <span class="opt">(optional summary of symptoms)</span><textarea class="input" name="reason" rows="3" placeholder="e.g. Knee pain after exercise for 3 weeks, need consultation and prescription review">'+esc(B.reason)+'</textarea></label></div>'
+  +'<label class="check mt-24"><input type="checkbox" name="consent"'+(B.consent?' checked':'')+'><span>I consent to '+BRAND.name+' storing these details to schedule and manage my appointment, in compliance with healthcare data protection standards (<a href="#/legal/privacy-policy">Privacy Policy</a>).</span></label><span class="err" id="err-consent">Please agree to consent so we can confirm your appointment.</span>'
+  +'<div class="row mt-32" style="justify-content:space-between"><button type="button" class="btn btn-outline" data-go="3">Back</button><button type="submit" class="btn btn-primary">Confirm &amp; Send Appointment Request →</button></div></form>';}
+ var d2=doc(B.doctor);var dt=new Date(B.date);
+ var gCalUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent('Doctor Appointment: '+(d2?d2.name:'Specialist')+' at '+BRAND.name)+'&dates='+dt.toISOString().slice(0,10).replace(/-/g,'')+'T'+B.time.replace(':','')+'00/'+dt.toISOString().slice(0,10).replace(/-/g,'')+'T'+(parseInt(B.time)+1)+B.time.slice(3)+'00&details='+encodeURIComponent('Appointment Pass Ref: '+B.ref+'. Department: '+spec(B.spec).name+'. Branch: '+br(B.branch).name)+'&location='+encodeURIComponent(br(B.branch).addr);
+ return '<div class="panel stack" style="gap:20px;max-width:760px">'
+  +'<div class="row" style="gap:16px;align-items:center"><span class="icon-box" style="background:var(--ok1);width:60px;height:60px">'+ic('check',32,'#1e7a46')+'</span><div><span class="pill pill-ok mb-8">Appointment Request Confirmed</span><h2 class="h2">Booking Received Successfully!</h2></div></div>'
+  +'<p class="lead" style="color:var(--ink)">Thank you, <strong>'+esc(B.name)+'</strong>. Your appointment request has been scheduled in the OPD management queue. Our appointment desk will call <strong class="num">'+esc(B.mobile)+'</strong> within 2 hours to confirm your reporting gate.</p>'
+  +'<div class="panel" style="background:var(--ivory);border:1px solid var(--stone3);padding:22px">'
+  +'<div class="lrow" style="font-size:17px"><span>Appointment Reference</span><strong class="num" style="color:var(--navy);font-size:18px">'+B.ref+'</strong></div>'
+  +'<div class="lrow"><span>Consulting Specialist</span><strong>'+(d2?d2.name:'Any available doctor')+' · '+spec(B.spec).name+'</strong></div>'
+  +'<div class="lrow"><span>Hospital Campus</span><span>'+br(B.branch).name+' ('+br(B.branch).addr+')</span></div>'
+  +'<div class="lrow"><span>Scheduled Date &amp; Time</span><strong class="num">'+DOW[dt.getDay()]+', '+dt.getDate()+' '+MON[dt.getMonth()]+' at '+B.time+'</strong></div>'
+  +'<div class="lrow" style="border:0"><span>Consultation Fee (Pay at Hospital)</span><strong class="num">'+(d2?d2.fee:'₹1,000')+'</strong></div></div>'
+  +'<div class="notice notice-navy">'+ic('info',20)+'<p>Please arrive 15 minutes before your time for OPD registration and vitals triage. Bring previous medical files, doctor notes, and photo ID.</p></div>'
+  +'<div class="row" style="gap:12px;flex-wrap:wrap">'
+  +'<a class="btn btn-primary" href="'+gCalUrl+'" target="_blank" rel="noopener">📅 Add to Google Calendar</a>'
+  +'<button type="button" class="btn btn-outline" onclick="window.print()">🖨️ Print Confirmation Pass</button>'
+  +'<a class="btn btn-dark" href="#/">Back to Home</a>'
+  +'<a class="btn btn-outline" href="#/book-appointment">Book Another</a>'
+  +'</div></div>';
+}
+function fld(n,l,t,p,e,extra,opt){return '<label class="field">'+l+(opt?' <span class="opt">(optional)</span>':'')+'<input class="input" name="'+n+'" type="'+t+'" placeholder="'+p+'" value="'+esc(B[n]||'')+'"'+(extra||'')+' aria-describedby="err-'+n+'"><span class="err" id="err-'+n+'">'+e+'</span></label>';}
+function bookSummary(){var d=doc(B.doctor),s=spec(B.spec);var dt=B.date?new Date(B.date):null;
+ return '<aside class="panel summary stack" style="gap:4px;box-shadow:var(--sh-md)"><h2 class="h3 mb-16">Your request</h2><div class="lrow"><span>Speciality</span><span>'+(s?s.name:'—')+'</span></div><div class="lrow"><span>Doctor</span><span>'+(d?d.name:B.doctor==='any'?'Any available':'—')+'</span></div><div class="lrow"><span>Branch</span><span>'+(B.branch?br(B.branch).name:'—')+'</span></div><div class="lrow"><span>When</span><span class="num">'+(dt?DOW[dt.getDay()]+' '+dt.getDate()+' '+MON[dt.getMonth()]:'—')+(B.time?' · '+B.time:'')+'</span></div><div class="lrow" style="border:0"><span>Fee (pay at hospital)</span><span class="num">'+(d?d.fee:'₹1,000')+'</span></div><p class="xs muted mt-8">Need help? Call <a href="'+TEL+'">'+PHONE+'</a></p></aside>';}
+
+function bindBooking(){
+ var root=document.getElementById('bookRoot');if(!root)return;
+ root.querySelectorAll('[data-set]').forEach(function(b){b.addEventListener('click',function(){var k=b.getAttribute('data-set'),v=b.getAttribute('data-val');B[k]=v;
+  if(k==='spec'){B.doctor='';B.branch='';B.date='';B.time='';B.step=2;}
+  else if(k==='doctor'){B.branch='';B.date='';B.time='';B.step=3;}
+  else if(k==='branch'){B.date='';B.time='';}
+  else if(k==='date'){B.time='';}
+  renderBooking();
+  if(k==='spec'||k==='doctor')scrollTo(0,0);
+ });});
+ root.querySelectorAll('[data-go]').forEach(function(b){b.addEventListener('click',function(){if(b.disabled)return;var to=+b.getAttribute('data-go');if(to===4&&!(B.date&&B.time))return;B.step=to;renderBooking();window.scrollTo(0,0);});});
+
+ var afBtn = document.getElementById('btnAutofill');
+ if(afBtn){
+   afBtn.addEventListener('click', function(){
+     var f=document.getElementById('patientForm');if(!f)return;
+     f.name.value = 'Rahul Verma';
+     f.mobile.value = '9876543210';
+     f.age.value = '36';
+     f.gender.value = 'Male';
+     f.email.value = 'rahul.verma@example.com';
+     f.reason.value = 'Knee pain and stiffness after physical activity; consultation for physiotherapy and joint evaluation.';
+     f.consent.checked = true;
+     afBtn.textContent = '✓ Sample Patient Filled!';
+     setTimeout(function(){ afBtn.textContent = '⚡ Autofill Test Patient Data'; }, 1500);
+   });
+ }
+
+ var f=document.getElementById('patientForm');
+ if(f)f.addEventListener('submit',function(e){e.preventDefault();
+  ['name','mobile','age','email','reason','gender'].forEach(function(k){if(f[k])B[k]=f[k].value.trim();});B.consent=f.consent.checked;
+  var cleanMobile = B.mobile.replace(/[\s\-\(\)\+]/g, '');
+  if(cleanMobile.startsWith('91') && cleanMobile.length === 12) cleanMobile = cleanMobile.slice(2);
+  var validMobile = cleanMobile.length >= 10 && cleanMobile.length <= 13 && /^\d+$/.test(cleanMobile);
+  var bad={
+    name: B.name.length < 2,
+    mobile: !validMobile,
+    age: !/^\d{1,3}$/.test(B.age) || +B.age > 120,
+    email: B.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(B.email)
+  };
+  var first=null;
+  Object.keys(bad).forEach(function(k){
+    var inp=f[k], er=document.getElementById('err-'+k);
+    if(inp){ inp.setAttribute('aria-invalid',bad[k]?'true':'false'); }
+    if(er){ er.classList.toggle('show',!!bad[k]); }
+    if(bad[k]&&!first)first=inp;
+  });
+  var cErr = document.getElementById('err-consent');
+  if(cErr) cErr.classList.toggle('show',!B.consent);
+  if(first){first.focus();return;}
+  if(!B.consent){f.consent.focus();return;}
+  B.ref='CP-'+Math.floor(100000+Math.random()*899999);
+  B.step=5;
+  renderBooking();
+  window.scrollTo(0,0);
+ });
+}
+
+V.emergency=function(){
+ return '<section style="background:var(--red);color:#fff"><div class="container" style="padding-bottom:56px">'+crumbs([['Emergency care']]).replace('class="crumbs"','class="crumbs" style="color:#ffe1e5"').replace(/style="color:var\(--ink\)"/,'style="color:#fff"').replace('<a href="#/">','<a href="#/" style="color:#fff">')
+ +'<div class="split mt-32" style="align-items:center"><div><div style="font-size:14px;font-weight:700;letter-spacing:.1em">24×7 EMERGENCY [VERIFY]</div><h1 class="h1 mt-8" style="color:#fff">Need help now? Call us.</h1><p class="mt-16" style="font-size:19px;color:#ffe1e5;max-width:560px">For heart attack, stroke, accidents, breathing problems or any urgent condition. Don’t wait for an appointment.</p></div><div class="stack"><a href="'+TEL+'" style="background:#fff;color:var(--red);border-radius:18px;padding:20px 22px;display:flex;align-items:center;gap:16px;text-decoration:none"><span class="em-card" style="padding:0;border:0"><span class="dot" style="width:56px;height:56px">'+ic('phone',26,'#fff')+'</span></span><span class="stack" style="gap:0;line-height:1.25"><span style="font-size:13px;font-weight:700;letter-spacing:.06em">TAP TO CALL EMERGENCY</span><span class="num" style="font-family:var(--display);font-size:clamp(24px,4vw,30px);font-weight:800;color:var(--ink)">'+PHONE+'</span></span></a><a href="'+TEL+'" style="background:var(--red7);color:#fff;border-radius:18px;padding:16px 22px;display:flex;justify-content:space-between;font-weight:600;text-decoration:none"><span>Ambulance <span class="num">[000-000-0000]</span></span><span aria-hidden="true">→</span></a><span style="font-size:14px;color:#ffe1e5">National ambulance: <a href="tel:108" style="color:#fff;font-weight:700">108</a> · Emergency: <a href="tel:112" style="color:#fff;font-weight:700">112</a></span></div></div></div></section>'
+ +'<section class="section"><div class="container"><h2 class="h2 mb-24">Nearest emergency department</h2><div class="grid g2">'+BRANCHES.map(function(b){return '<div class="card" style="padding:0;overflow:hidden;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))"><div class="map-box" style="border-radius:0">Map · ER entrance</div><div class="stack" style="padding:22px"><h3>'+b.name+'</h3><p class="muted small">'+b.addr+'. ER entrance on [gate / road].</p><a href="'+TEL+'" style="color:var(--red);font-weight:700">Call ER '+b.phone+'</a><a class="link-arrow" href="#/locations/'+b.slug+'">Get directions →</a></div></div>';}).join('')+'</div></div></section>'
+ +'<section class="section alt"><div class="container split"><div><h2 class="h2 mb-24">What to do in an emergency</h2><ol class="stack" style="list-style:none;padding:0;gap:22px">'+[['Call before you travel','Tell us the symptoms so the team is ready when you arrive.'],['Come straight to the ER entrance','No appointment or referral needed. Patients are seen by urgency.'],['Paperwork can wait','Treatment starts first. Insurance and CGHS/TPA approvals are handled by our desk.']].map(function(x,i){return '<li style="display:flex;gap:16px"><span style="width:40px;height:40px;border-radius:999px;background:var(--red1);color:var(--red);font-family:var(--display);font-weight:800;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">'+(i+1)+'</span><span><h3 style="font-size:19px">'+x[0]+'</h3><p class="muted small">'+x[1]+'</p></span></li>';}).join('')+'</ol></div><div class="panel" style="align-self:start"><h2 class="h3 mb-16">Bring if you can</h2><ul style="padding-left:20px;line-height:1.9"><li>Photo ID and phone</li><li>Current medicines or prescriptions</li><li>Previous reports</li><li>Insurance / CGHS card</li></ul></div></div></section>'
+ +'<section class="section dark"><div class="container"><h2 class="h2">Emergency department</h2><p class="mt-8 mb-24" style="color:var(--navy3)">Services listed only once verified for each branch.</p><div class="grid g4">'+[['Triage & resuscitation','[0] ER beds; critical patients first.'],['Heart attack & stroke','[Cath lab, CT access — verify].'],['Trauma & accidents','Orthopaedic and surgical teams on call.'],['ICU admission','Direct transfer to [00] ICU beds.']].map(function(x){return '<div class="tile" style="min-height:150px"><h3>'+x[0]+'</h3><p>'+x[1]+'</p></div>';}).join('')+'</div></div></section>'
+ +'<section class="section"><div class="container"><div class="card" style="flex-direction:row;justify-content:space-between;align-items:center;flex-wrap:wrap"><p class="muted">Not an emergency? A regular consultation is quicker for non-urgent problems.</p><a class="link-arrow" href="#/book-appointment">Book an appointment →</a></div></div></section>';
+};
+
+V.locations=function(){
+ return pageHero('Locations','Our hospitals','Choose a branch for directions, doctors and OPD timings.',[['Locations']])
+ +'<section class="section"><div class="container grid g2">'+BRANCHES.map(function(b){return '<a class="card" href="#/locations/'+b.slug+'">'+ph('Photo: '+b.name+' exterior','',220)+'<h2 class="h3">'+b.name+'</h2><p class="muted small">'+b.addr+'</p><div class="row small" style="gap:18px"><span>'+b.beds+' beds</span><span>'+b.icu+' ICU</span><span>'+DOCS.filter(function(d){return d.branches.indexOf(b.slug)>-1;}).length+' doctors</span></div><span class="more">View branch →</span></a>';}).join('')+'</div></section>';
+};
+V.branch=function(slug){
+ var b=br(slug);if(!b)return V.notfound();var docs=DOCS.filter(function(d){return d.branches.indexOf(slug)>-1;});
+ var specs=SPECS.filter(function(s){return docs.some(function(d){return d.spec===s.slug;});});
+ return pageHero(b.name+' branch','[Hospital Name], '+b.name,b.addr,[['Locations','#/locations'],[b.name]],'<div class="row mt-24"><a class="btn btn-primary" href="#/book-appointment">Book at this branch</a><a class="btn btn-outline" href="'+TEL+'">Call '+b.phone+'</a><a class="btn btn-em" href="#/emergency-care">Emergency</a></div>'+'<div class="row mt-16"><span class="pill pill-ok">[NABH]</span><span class="pill pill-ok">[NABL]</span><span class="pill pill-navy">[CGHS empanelled]</span></div>')
+ +'<section class="section"><div class="container split"><div><div class="map-box" style="min-height:320px">Google Map · '+b.name+' · loads when tapped</div><div class="row mt-16"><a class="btn btn-dark" href="#/locations/'+slug+'">'+ic('pin',18)+'Get directions</a><span class="small muted">'+b.hours+'</span></div></div><div><h2 class="h2 mb-24">At this branch</h2><div class="stats" style="grid-template-columns:repeat(2,1fr)"><div><div class="n">'+b.beds+'</div><div class="muted small">Beds</div></div><div><div class="n">'+b.icu+'</div><div class="muted small">ICU beds</div></div><div><div class="n">'+b.ot+'</div><div class="muted small">Operation theatres</div></div><div><div class="n">'+docs.length+'</div><div class="muted small">Doctors</div></div></div><p class="xs muted mt-8">Established '+b.est+'. Figures to be verified.</p></div></div></section>'
+ +'<section class="section alt"><div class="container"><h2 class="h2 mb-24">Specialities here</h2><div class="row">'+specs.map(function(s){return '<a class="chip" href="#/specialities/'+s.slug+'">'+s.name+'</a>';}).join('')+'</div></div></section>'
+ +'<section class="section"><div class="container"><div class="sec-head"><h2 class="h2">Doctors at '+b.name+'</h2><a class="link-arrow" href="#/doctors?branch='+slug+'">See all →</a></div><div class="grid g4">'+docs.slice(0,4).map(docCard).join('')+'</div></div></section>'
+ +'<section class="section alt"><div class="container"><h2 class="h2 mb-24">Branch photos</h2><div class="grid g4">'+['Reception','OPD waiting area','Patient room','Diagnostics'].map(function(x){return ph('Photo: '+x,'',180);}).join('')+'</div></div></section>';
+};
+
+V.blog=function(){
+ var cats=['All'].concat(POSTS.map(function(p){return p.cat;}).filter(function(v,i,a){return a.indexOf(v)===i;}));
+ return pageHero('Health library','Answers from our doctors','Clear, medically reviewed articles to help you understand your health.',[['Health library']],'<label class="field mt-24" style="max-width:520px">Search articles<input class="input" id="blogSearch" type="search" placeholder="e.g. knee, fever, pregnancy"></label>')
+ +'<section class="section"><div class="container"><a class="card mb-24" href="#/blog/'+POSTS[1].slug+'" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;padding:0;overflow:hidden"><div style="min-height:240px;background:var(--navy1)"></div><div class="stack" style="padding:28px;justify-content:center"><span class="pill pill-red" style="align-self:flex-start">Featured</span><span class="eyebrow" style="margin:0">'+POSTS[1].cat+'</span><h2 class="h2" style="font-size:clamp(24px,3vw,32px)">'+POSTS[1].title+'</h2><span class="xs muted">Reviewed by [Doctor name] · '+POSTS[1].min+' min read</span></div></a>'
+ +'<div class="row mb-24" role="group" aria-label="Categories">'+cats.map(function(c,i){return '<button type="button" class="chip" data-blogcat="'+c+'" aria-pressed="'+(i===0)+'">'+c+'</button>';}).join('')+'</div><div class="grid g3" id="blogGrid">'+POSTS.map(function(p){return '<div data-cat="'+p.cat+'" data-title="'+p.title.toLowerCase()+'">'+postCard(p)+'</div>';}).join('')+'</div><p id="blogEmpty" class="muted" hidden>No articles match.</p><nav class="row mt-32 center" aria-label="Pagination" style="justify-content:center"><span class="chip on" aria-current="page">1</span><a class="chip" href="#/blog">2</a><a class="chip" href="#/blog">Next →</a></nav></div></section>';
+};
+V.post=function(slug){
+ var p=null;POSTS.forEach(function(x){if(x.slug===slug)p=x;});if(!p)return V.notfound();var s=spec(p.spec);var docs=DOCS.filter(function(d){return d.spec===p.spec;}).slice(0,2);
+ return '<div class="container">'+crumbs([['Health library','#/blog'],[p.cat]])+'</div><section class="section" style="padding-top:32px"><div class="container"><div style="max-width:820px"><span class="eyebrow">'+p.cat+'</span><h1 class="h1" style="font-size:clamp(30px,5vw,48px)">'+p.title+'</h1><div class="row mt-16 small muted" style="gap:16px"><span>Medically reviewed by <a href="#/doctors/'+(docs[0]?docs[0].id:'')+'">[Doctor name], [Qualification]</a></span><span>Published [date] · Updated [date]</span><span>'+p.min+' min read</span></div></div><div style="height:clamp(200px,40vw,420px);border-radius:24px;background:'+p.bg+';margin:32px 0"></div>'
+ +'<div class="split side"><div class="article" style="max-width:760px"><p class="lead" style="color:var(--ink)">[Introductory paragraph answering the reader’s question directly in two or three sentences.]</p><h2 id="a1">What causes it</h2><p>[Plain-English explanation, reviewed by the doctor.]</p><h2 id="a2">Warning signs</h2><p>[List of symptoms; red-flag symptoms link to emergency care.]</p><div class="notice notice-red mb-24">'+ic('info',20,'#c8102e')+'<p>If you have severe or sudden symptoms, <a href="#/emergency-care" style="color:var(--red);font-weight:700">get emergency help</a>.</p></div><h2 id="a3">Treatment options</h2><p>[What a specialist may advise. No guaranteed outcomes.]</p><h2 id="a4">When to see a doctor</h2><p>[Clear guidance and next step.]</p><div class="panel mt-32" style="background:var(--navy1);border:0"><h3 class="h3">See a '+s.name+' specialist</h3><p class="muted mt-8 mb-16">Book with one of our doctors to discuss your symptoms.</p><div class="row"><a class="btn btn-primary" href="#/book-appointment?spec='+s.slug+'">Book '+s.name+'</a><a class="btn btn-outline" href="#/specialities/'+s.slug+'">About '+s.name+'</a></div></div><p class="xs muted mt-32">Medical disclaimer: this article is for general information and is not a substitute for advice from your doctor. <a href="#/legal/medical-disclaimer">Read more</a></p></div>'
+ +'<aside class="stack summary" style="gap:20px"><nav class="toc" aria-label="Contents"><strong class="small">On this page</strong><a href="javascript:void(0)" data-jump="a1">What causes it</a><a href="javascript:void(0)" data-jump="a2">Warning signs</a><a href="javascript:void(0)" data-jump="a3">Treatment options</a><a href="javascript:void(0)" data-jump="a4">When to see a doctor</a></nav><div class="stack"><strong class="small">Doctors for this</strong>'+docs.map(docRow).join('')+'</div></aside></div></div></section>'
+ +'<section class="section alt"><div class="container"><h2 class="h2 mb-24">Related articles</h2><div class="grid g3">'+POSTS.filter(function(x){return x.slug!==slug;}).slice(0,3).map(postCard).join('')+'</div></div></section>';
+};
+
+V.contact=function(q){
+ return pageHero('Contact us','We’re here to help','For appointments, questions about treatment, billing or feedback.',[['Contact us']])
+ +'<section class="section"><div class="container split rev"><form class="panel" id="contactForm" novalidate><h2 class="h3 mb-24">Send us a message</h2><div class="grid g2" style="gap:18px"><label class="field">Your name<input class="input" name="name" type="text"><span class="err">Enter your name</span></label><label class="field">Mobile number<input class="input" name="mobile" type="tel" placeholder="10-digit mobile"><span class="err">Enter a valid 10-digit mobile number</span></label><label class="field">Topic<select class="input" name="topic"><option>General enquiry</option><option'+(q.topic==='package'?' selected':'')+'>Health package</option><option>Billing &amp; insurance</option><option>Medical records</option><option>Feedback</option><option>International patient</option></select></label><label class="field">Branch<select class="input" name="branch">'+BRANCHES.map(function(b){return '<option>'+b.name+'</option>';}).join('')+'</select></label><label class="field" style="grid-column:1/-1">Message<textarea class="input" name="msg" rows="4">'+(q.name?'Enquiry about: '+esc(q.name):'')+'</textarea></label></div><label class="check mt-16"><input type="checkbox" name="consent"><span>I agree to be contacted about my enquiry (<a href="#/legal/privacy-policy">privacy policy</a>).</span></label><span class="err" id="c-consent">Please agree so we can reply.</span><div id="contactOk" class="notice notice-ok mt-16" hidden>'+ic('check',20,'#1e7a46')+'<span>Thanks — we’ve received your message (prototype). The team replies within [1 working day].</span></div><button class="btn btn-primary mt-24" type="submit">Send message</button><p class="xs muted mt-16">For medical emergencies do not use this form — call <a href="'+TEL+'" style="color:var(--red);font-weight:700">'+PHONE+'</a>.</p></form>'
+ +'<div class="stack" style="gap:20px"><div class="panel" style="background:var(--red1);border-color:#f3c6cd"><div class="xs" style="color:var(--red);font-weight:700;letter-spacing:.08em">EMERGENCY</div><a class="num" href="'+TEL+'" style="font-family:var(--display);font-size:26px;font-weight:800;color:var(--ink)">'+PHONE+'</a></div>'+BRANCHES.map(branchCard).join('')+'<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Department</th><th>Phone</th></tr></thead><tbody>'+[['Appointments','[000-0000000]'],['TPA / Insurance desk','[000-0000000]'],['Health check-ups','[000-0000000]'],['Medical records','[000-0000000]'],['Billing','[000-0000000]']].map(function(r){return '<tr><td>'+r[0]+'</td><td class="num"><a href="'+TEL+'">'+r[1]+'</a></td></tr>';}).join('')+'</tbody></table></div><p class="small">Email: <a href="mailto:info@example.com">[info@hospital.com]</a></p></div></div></section>';
+};
+V.careers=function(){
+ return pageHero('Careers','Work with us','Join a team that puts patients first. [Culture paragraph from HR.]',[['Careers']])
+ +'<section class="section"><div class="container"><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Role</th><th>Department</th><th>Branch</th><th>Type</th><th></th></tr></thead><tbody>'+[['Staff Nurse','Nursing','[Branch 1]','Full-time'],['ICU Nurse','Critical Care','[Branch 2]','Full-time'],['Front Office Executive','Patient Services','[Branch 1]','Full-time'],['Consultant — [Speciality]','Medical','[Branch 2]','Full-time']].map(function(r){return '<tr><td><strong>'+r[0]+'</strong> <span class="pill pill-warn">Sample</span></td><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td><td><a class="link-arrow" href="#/contact-us">Apply →</a></td></tr>';}).join('')+'</tbody></table></div><p class="muted mt-24">Send your CV to <a href="mailto:hr@example.com">[hr@hospital.com]</a>.</p></div></section>';
+};
+V.news=function(){
+ return pageHero('News & events','News, events & health camps','Hospital updates, free health camps and community programmes.',[['News & events']])
+ +'<section class="section"><div class="container grid g3">'+[['Health camp','Free diabetes screening camp at [location]','[Date]'],['Hospital update','[New facility] opens at [Branch]','[Date]'],['Event','World Heart Day awareness walk','[Date]']].map(function(x){return '<article class="card">'+ph('Event photo','',180)+'<span class="pill pill-teal" style="align-self:flex-start">'+x[0]+'</span><h3>'+x[1]+'</h3><span class="xs muted">'+x[2]+'</span></article>';}).join('')+'</div></section>';
+};
+V.faqs=function(){
+ return pageHero('FAQs','Frequently asked questions','Appointments, visiting, insurance and records.',[['FAQs']])+'<section class="section"><div class="container" style="max-width:860px">'+faqBlock(FAQS.concat([['Can I get a second opinion?','Yes. Book with the relevant specialist and bring all previous reports and scans.'],['Is parking available?','[Parking details for each branch.]'],['Do you treat international patients?','[Only if the hospital offers this service.]']]))+'</div></section>'+ctaBand('Still have a question?','Our team is happy to help.','Contact us','#/contact-us');
+};
+V.legal=function(slug){
+ var t={'privacy-policy':'Privacy Policy','terms-and-conditions':'Terms & Conditions','medical-disclaimer':'Medical Disclaimer','accessibility':'Accessibility Statement'}[slug];if(!t)return V.notfound();
+ return pageHero('Legal',t,'Last updated [date]. Final text to be reviewed by the hospital’s legal advisor.',[[t]])+'<section class="section"><div class="container article" style="max-width:820px"><h2>1. [Section]</h2><p class="muted">[Policy text. For privacy: what data the website collects (appointment and enquiry forms), why, how long it is kept, and how to contact the grievance officer, in line with India’s Digital Personal Data Protection Act.]</p><h2>2. [Section]</h2><p class="muted">[Policy text.]</p></div></section>';
+};
+V.map=function(){
+ var pages=[['Home','#/'],['About us','#/about-us'],['Chairman’s message','#/about-us/chairman-message'],['Vision, mission & values','#/about-us/vision-mission-values'],['Our journey','#/about-us/our-journey'],['Leadership','#/about-us/leadership'],['Accreditations','#/about-us/accreditations'],['Quality & patient safety','#/about-us/quality-and-patient-safety'],['Specialities','#/specialities'],['Speciality — Cardiology','#/specialities/cardiology'],['Speciality — Orthopaedics','#/specialities/orthopaedics'],['Doctors directory','#/doctors'],['Doctor profile','#/doctors/doctor-01'],['Facilities','#/facilities'],['Facility — ICU','#/facilities/icu'],['Patient information','#/patient-information'],['Insurance & cashless','#/patient-information/insurance'],['Visiting hours','#/patient-information/visiting-hours'],['Admission process','#/patient-information/admission'],['Health packages','#/health-packages'],['Book appointment','#/book-appointment'],['Emergency care','#/emergency-care'],['Locations','#/locations'],['Branch page','#/locations/branch-1'],['Health library','#/blog'],['Article','#/blog/knee-pain-when-to-see-specialist'],['Contact us','#/contact-us'],['Careers','#/careers'],['News & events','#/news-and-events'],['FAQs','#/faqs'],['Privacy policy','#/legal/privacy-policy'],['Medical disclaimer','#/legal/medical-disclaimer'],['404 page','#/this-page-does-not-exist']];
+ var flows=[
+  ['1. Book with a known doctor (3 taps)',[['Search doctor on Home','#/'],['Open Doctors directory','#/doctors'],['Doctor profile → Book','#/doctors/doctor-04'],['Booking pre-filled at step 3','#/book-appointment?doctor=doctor-04']]],
+  ['2. Symptom → speciality → doctor → book',[['Home: “Knee pain” chip','#/'],['Orthopaedics page','#/specialities/orthopaedics'],['Choose a doctor','#/doctors?spec=orthopaedics'],['Book with speciality pre-selected','#/book-appointment?spec=orthopaedics']]],
+  ['3. Emergency (1 tap)',[['Red Emergency in top bar / mobile bar','#/emergency-care'],['Tap to call, nearest ER, directions','#/emergency-care']]],
+  ['4. Insurance check → cashless steps',[['Type insurer in checker','#/patient-information/insurance'],['Follow cashless steps','#/patient-information/insurance']]],
+  ['5. Read an article → book',[['Health library','#/blog'],['Article with reviewer','#/blog/chest-pain-emergency-signs'],['Related speciality + doctor','#/specialities/cardiology'],['Book','#/book-appointment?spec=cardiology']]],
+  ['6. Health package enquiry',[['Packages, filter by type','#/health-packages'],['Enquire → contact form pre-filled','#/contact-us?topic=package&name=Full%20Body%20Check-up']]]
+ ];
+ return pageHero('Prototype','All pages &amp; workflows','Every page in this prototype and the patient journeys it demonstrates. Click any step to try it.',[['Prototype map']])
+ +'<section class="section"><div class="container"><h2 class="h2 mb-24">Patient workflows</h2><div class="grid g3">'+flows.map(function(f){return '<div class="journey-card"><h3 style="font-size:19px">'+f[0]+'</h3><ol>'+f[1].map(function(s){return '<li><a href="'+s[1]+'">'+s[0]+'</a></li>';}).join('')+'</ol></div>';}).join('')+'</div></div></section>'
+ +'<section class="section alt"><div class="container"><h2 class="h2 mb-24">All pages ('+pages.length+' shown + one per speciality, doctor, facility, branch and article)</h2><div class="grid g4">'+pages.map(function(p){return '<a class="card" style="padding:16px 18px" href="'+p[1]+'"><strong style="color:var(--navy)">'+p[0]+'</strong><span class="xs muted">'+p[1].replace('#','')+'</span></a>';}).join('')+'</div></div></section>';
+};
+V.notfound=function(){
+ return '<section class="section"><div class="container center" style="max-width:640px"><div class="eyebrow">Error 404</div><h1 class="h1">We can’t find that page</h1><p class="lead mt-16">It may have moved. These links might help:</p><div class="row mt-32" style="justify-content:center"><a class="btn btn-primary" href="#/book-appointment">Book appointment</a><a class="btn btn-outline" href="#/doctors">Find a doctor</a><a class="btn btn-outline" href="#/specialities">Specialities</a><a class="btn btn-em" href="#/emergency-care">Emergency</a></div></div></section>';
+};
+
+/* ---------------- ROUTER ---------------- */
+function parse(){var h=location.hash.replace(/^#\/?/,'');var qi=h.indexOf('?');var path=qi>-1?h.slice(0,qi):h;var qs=qi>-1?h.slice(qi+1):'';var q={};qs.split('&').forEach(function(p){if(!p)return;var kv=p.split('=');q[decodeURIComponent(kv[0])]=decodeURIComponent((kv[1]||'').replace(/\+/g,' '));});return {parts:path.split('/').filter(Boolean),q:q};}
+var TITLES={};
+function route(){
+ var r=parse(),p=r.parts,html,title='',nav=p[0]||'';
+ if(!p.length){html=V.home();title='Specialist care, close to home';}
+ else if(p[0]==='about-us'){html=p[1]?V.aboutSub(p[1]):V.about();title='About us';}
+ else if(p[0]==='specialities'){html=p[1]?V.spec(p[1]):V.specialities();title=p[1]&&spec(p[1])?spec(p[1]).name:'Specialities';}
+ else if(p[0]==='doctors'){html=p[1]?V.doctor(p[1]):V.doctors(r.q);title=p[1]&&doc(p[1])?doc(p[1]).name:'Find a doctor';}
+ else if(p[0]==='facilities'){html=p[1]?V.facility(p[1]):V.facilities();title='Facilities';}
+ else if(p[0]==='patient-information'){html=p[1]?V.pinfoSub(p[1]):V.pinfo();title='Patient information';}
+ else if(p[0]==='health-packages'){html=V.packages();title='Health packages';}
+ else if(p[0]==='book-appointment'){html=V.booking(r.q);title='Book an appointment';}
+ else if(p[0]==='emergency-care'){html=V.emergency();title='Emergency care';}
+ else if(p[0]==='locations'){html=p[1]?V.branch(p[1]):V.locations();title='Locations';}
+ else if(p[0]==='blog'){html=p[1]?V.post(p[1]):V.blog();title='Health library';}
+ else if(p[0]==='contact-us'){html=V.contact(r.q);title='Contact us';}
+ else if(p[0]==='careers'){html=V.careers();title='Careers';}
+ else if(p[0]==='news-and-events'||p[0]==='health-camps'){html=V.news();title='News & events';}
+ else if(p[0]==='faqs'){html=V.faqs();title='FAQs';}
+ else if(p[0]==='legal'){html=V.legal(p[1]);title='Legal';}
+ else if(p[0]==='prototype-map'){html=V.map();title='All pages & workflows';}
+ else {html=V.notfound();title='Page not found';}
+ var main=document.getElementById('main');main.innerHTML=html;
+ document.title=title+' | [Hospital Name]';
+ document.querySelectorAll('[data-nav]').forEach(function(a){var on=a.getAttribute('data-nav')===nav;if(a.tagName==='A'){if(on)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');}else a.classList.toggle('cur',on);});
+ closeAll();window.scrollTo(0,0);main.focus({preventScroll:true});
+ after(p,r.q);
+}
+function after(p,q){
+ bindIns();
+ document.querySelectorAll('[data-jump]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var t=document.getElementById(a.getAttribute('data-jump'));if(t){var y=t.getBoundingClientRect().top+scrollY-140;scrollTo({top:y,behavior:'smooth'});}});});
+ var fd=document.getElementById('finder');
+ if(fd)fd.addEventListener('submit',function(e){e.preventDefault();var qs=[];['q','spec','branch'].forEach(function(k){var el=(fd.elements&&fd.elements[k])||fd[k];if(el&&el.value)qs.push(k+'='+encodeURIComponent(el.value));});location.hash='#/doctors'+(qs.length?'?'+qs.join('&'):'');});
+ var df=document.getElementById('docFilter');
+ if(df){df.addEventListener('input',filterDocs);df.addEventListener('change',filterDocs);df.addEventListener('reset',function(){setTimeout(filterDocs,0);});df.addEventListener('submit',function(e){e.preventDefault();});filterDocs();}
+ if(document.getElementById('bookRoot'))renderBooking();
+ var ss=document.getElementById('specSearch');
+ if(ss)ss.addEventListener('input',function(){var v=ss.value.trim().toLowerCase(),any=false;document.querySelectorAll('#specList [data-group]').forEach(function(g){var vis=0;g.querySelectorAll('[data-name]').forEach(function(c){var m=!v||c.getAttribute('data-name').indexOf(v)>-1;c.hidden=!m;if(m)vis++;});g.hidden=vis===0;if(vis)any=true;});document.getElementById('specEmpty').hidden=any;});
+ document.querySelectorAll('[data-pkg]').forEach(function(b){b.addEventListener('click',function(){var c=b.getAttribute('data-pkg');document.querySelectorAll('[data-pkg]').forEach(function(x){x.setAttribute('aria-pressed',x===b);});document.querySelectorAll('#pkgGrid [data-cat]').forEach(function(x){x.hidden=c!=='All'&&x.getAttribute('data-cat')!==c;});});});
+ var bs=document.getElementById('blogSearch'),cat='All';
+ function fb(){var v=bs?bs.value.trim().toLowerCase():'',n=0;document.querySelectorAll('#blogGrid [data-cat]').forEach(function(x){var m=(cat==='All'||x.getAttribute('data-cat')===cat)&&(!v||x.getAttribute('data-title').indexOf(v)>-1);x.hidden=!m;if(m)n++;});var e=document.getElementById('blogEmpty');if(e)e.hidden=n>0;}
+ if(bs)bs.addEventListener('input',fb);
+ document.querySelectorAll('[data-blogcat]').forEach(function(b){b.addEventListener('click',function(){cat=b.getAttribute('data-blogcat');document.querySelectorAll('[data-blogcat]').forEach(function(x){x.setAttribute('aria-pressed',x===b);});fb();});});
+ var cf=document.getElementById('contactForm');
+ if(cf)cf.addEventListener('submit',function(e){e.preventDefault();var ok=true;
+  var nEl=(cf.elements&&cf.elements['name'])||cf.name, mEl=(cf.elements&&cf.elements['mobile'])||cf.mobile, cEl=(cf.elements&&cf.elements['consent'])||cf.consent;
+  var cleanMobile = mEl ? mEl.value.replace(/[\s\-\(\)\+]/g, '') : '';
+  if(cleanMobile.startsWith('91') && cleanMobile.length === 12) cleanMobile = cleanMobile.slice(2);
+  var validMobile = cleanMobile.length >= 10 && cleanMobile.length <= 13 && /^\d+$/.test(cleanMobile);
+  var nm = nEl && nEl.value.trim().length > 1;
+  [[nEl,nm],[mEl,validMobile]].forEach(function(x){if(x[0]){x[0].setAttribute('aria-invalid',x[1]?'false':'true');var er=x[0].parentNode.querySelector('.err');if(er)er.classList.toggle('show',!x[1]);if(!x[1]&&ok){x[0].focus();ok=false;}}});
+  var cErr=document.getElementById('c-consent'), consented=cEl&&cEl.checked;
+  if(cErr)cErr.classList.toggle('show',!consented);if(ok&&!consented)ok=false;
+  var cOk=document.getElementById('contactOk');if(cOk)cOk.hidden=!ok;if(ok){var subBtn=cf.querySelector('button[type=submit]');if(subBtn)subBtn.disabled=true;}});
+}
+
+/* ---------------- MEGA MENU + DRAWER ---------------- */
+var mega=document.getElementById('mega');
+mega.innerHTML=GROUPS.map(function(g){return '<div><h4>'+g.name+'</h4>'+SPECS.filter(function(s){return s.g===g.id;}).map(function(s){return '<a href="#/specialities/'+s.slug+'">'+s.name+'</a>';}).join('')+'</div>';}).join('')+'<div class="all"><a href="#/specialities">View all specialities →</a><a href="#/doctors">Find a doctor →</a><a href="#/emergency-care" style="color:var(--red)">Emergency care →</a></div>';
+var dd=document.getElementById('specDD'),ddb=dd.querySelector('button');
+ddb.addEventListener('click',function(e){e.stopPropagation();var o=!dd.classList.contains('open');dd.classList.toggle('open',o);ddb.setAttribute('aria-expanded',o);});
+document.addEventListener('click',function(e){if(!dd.contains(e.target)){dd.classList.remove('open');ddb.setAttribute('aria-expanded','false');}});
+var drawer=document.getElementById('drawer'),mb=document.getElementById('menuBtn');
+mb.addEventListener('click',function(){drawer.classList.add('open');drawer.setAttribute('aria-hidden','false');mb.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';drawer.querySelector('[data-close].icon-btn').focus();});
+drawer.querySelectorAll('[data-close]').forEach(function(x){x.addEventListener('click',closeAll);});
+function closeAll(){dd.classList.remove('open');ddb.setAttribute('aria-expanded','false');if(drawer.classList.contains('open')){drawer.classList.remove('open');drawer.setAttribute('aria-hidden','true');mb.setAttribute('aria-expanded','false');document.body.style.overflow='';}}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAll();});
+
+
+// Brand Customization Modal Listeners
+var bModal = document.getElementById('brandModal');
+var bOpenBtn = document.getElementById('btnChangeBrand');
+var bCloseBtn = document.getElementById('btnCloseBrandModal');
+var bSaveBtn = document.getElementById('btnSaveBrand');
+var bResetBtn = document.getElementById('btnResetBrand');
+
+if(bOpenBtn) bOpenBtn.addEventListener('click', function(){ bModal.classList.add('open'); bModal.setAttribute('aria-hidden','false'); document.getElementById('inputBrandName').focus(); });
+if(bCloseBtn) bCloseBtn.addEventListener('click', function(){ bModal.classList.remove('open'); bModal.setAttribute('aria-hidden','true'); });
+if(bModal) bModal.addEventListener('click', function(e){ if(e.target===bModal){ bModal.classList.remove('open'); bModal.setAttribute('aria-hidden','true'); } });
+if(bSaveBtn) bSaveBtn.addEventListener('click', function(){
+  var val = document.getElementById('inputBrandName').value.trim();
+  if(val){
+    BRAND.name = val;
+    localStorage.setItem('demo_hosp_name', val);
+    updateBrandDOM();
+    bModal.classList.remove('open');
+    bModal.setAttribute('aria-hidden','true');
+    route();
+  }
+});
+if(bResetBtn) bResetBtn.addEventListener('click', function(){
+  BRAND.name = 'CarePulse Super-Speciality Hospital';
+  localStorage.removeItem('demo_hosp_name');
+  document.getElementById('inputBrandName').value = BRAND.name;
+  updateBrandDOM();
+  bModal.classList.remove('open');
+  bModal.setAttribute('aria-hidden','true');
+  route();
+});
+updateBrandDOM();
+
+window.addEventListener('hashchange',route);
+route();
+})();
+</script>
+</body>
+</html>
